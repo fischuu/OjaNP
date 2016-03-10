@@ -26,6 +26,7 @@ class Simplex
 	
     void get(const Data& D,const Index& I,const Point& v);
     void get(const Data& D,const Index& I);
+	void get(const vector<Point> points);
     void set_column(int col,const Point& v);
 	
     int dim() const

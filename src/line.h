@@ -43,6 +43,8 @@ class Line
     double dx(int i) const;
     Point dir() const
 		{return direction;} 
+	Point origin() const
+		{return start;}
     double angle(const Point& z) const;
     Point proj(const Point& z) const; 
     double proj_length(const Point& z) const

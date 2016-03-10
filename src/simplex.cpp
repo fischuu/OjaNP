@@ -106,6 +106,25 @@ void Simplex::get(const Data& D,const Index& I)
     get(D,I,Zero);
 }
 
+void Simplex::get(const vector<Point> points)
+{
+	errif(points.size() == 0, "Simplex::get: vector points has no elements")
+		int d = points[0].dim();
+
+	if (dim() != d)
+		M = matrix(d + 1, d + 1);
+
+	errif(d + 1 != points.size(), "Simplex::get: vector points size '" << points.size()
+		<< "' must equal dimension + 1");
+
+	for (int c = 0; c < dim() + 1; c++)
+		M(0, c) = 1.0;
+
+	for (int c = 0; c < dim() + 1; c++)
+	for (int r = 0; r < dim(); r++)
+		M(r + 1, c) = points[c].coord(r);
+}
+
 void Simplex::set_column(int col,const Point& v)
 {
 	errif(col < 0 || col >= dim()+1,"Simplex::get_column: invalid column " << col);

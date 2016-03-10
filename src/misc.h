@@ -3,14 +3,19 @@
 #ifndef MISC_H
 #define MISC_H
 
+//#define TO_FILE
+//#define DEEPDEBUG
+
 #include <list>
 #include <vector>
 #include <iostream>
 
 using namespace std;
 
+#define check_bit(var,pos) ((var) & (1<<(pos)))
+
 int fact(int k);
-int choices(int n,int k);
+unsigned long choices(int n, int k);
 double round(double x,double prec);
 bool is_file(const char* s);
 

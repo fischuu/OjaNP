@@ -17,7 +17,7 @@ class Lattice;
 
 enum OjaMedianMethod
 {
-    EVAL_ALL_POINTS,GRADIENT_DESCENT,BRUTE_FORCE,FOLLOW_INTERSECTION_LINES,
+	EVAL_ALL_POINTS, GRADIENT_DESCENT, BRUTE_FORCE, FOLLOW_INTERSECTION_LINES, FOLLOW_INTERSECTION_LINES_BOUNDED, FOLLOW_INTERSECTION_LINES_BOUNDED_APPROX,
 	LATTICE_APPROX,LATTICE_APPROX2,LATTICE_APPROX3,BOOTSTRAP,SIMPLEX_APPROX
 };
 
@@ -85,15 +85,19 @@ class OjaData: public Data
 	LatticeMeasure lattice_measure;
     HyperplaneSet* plane;
     int planes;
+	set<int> includedPlanes;	// Planes included in bounded exact search algorithm
     Index* planeindex;
     Point norm_offset,norm_scale;
 	Point exact_median; // Tarkka mediaani, jos tiedossa (tiedostosta)
+	Point boundedMin;	Point boundedMax;  // min || max defined by bounds
+	int original_size;
 
 	// Parametereja eri menetelmille
 	double epsilon;
 	double chi2_limit;
 	int set_size;
 	int max_searchlines;
+	double volume;
 
     double confidence_size(Lattice* L);
 	
@@ -101,6 +105,7 @@ class OjaData: public Data
     OjaPoint medianEvalAllPoints();
     OjaPoint medianGradientDescent();
     OjaPoint medianFollowIntersectionLines();
+	OjaPoint medianFollowIntersectionLinesBounded();
 	OjaPoint medianBruteForceSearch();
 	OjaPoint medianLatticeApprox();
 	OjaPoint medianLatticeApprox2();
@@ -110,7 +115,13 @@ class OjaData: public Data
 	void brute_force_search(OjaLine& L,OjaPoint& p,double hi_score);
 	
   public:
-    
+#ifdef VS 
+#ifdef DEEPDEBUG
+	static OjaData S;
+#endif
+#endif
+	Point h; double h0;
+
     OjaData();
     OjaData(const char* filename);  
     OjaData(int vecdim,int size);
@@ -128,6 +139,8 @@ class OjaData: public Data
 		{set_size=sz;}
 	void set_max_searchlines(int ml)
 		{max_searchlines=ml;}
+	void set_volume(double vol)
+		{volume = vol;}
 
     OjaPoint median();
 	Point exact() const
@@ -137,6 +150,9 @@ class OjaData: public Data
     double oja(const OjaPoint& x) const
 		{return oja(x.location());}
     Point gradient(const Point& x) const;
+	Point oja_rank(const Point& x) const;
+	Hyperplane getBoundingHyperplane(Point& point, Point& grad);
+	Hyperplane getBoundingHyperplane(Point& point);
     void get_oja_and_gradient(const Point& x,double& oja,Point& grad) const;
     bool derivative(const Point& x,const Point& direction,double& Dpos,double& Dneg) const; 
     bool derivative(const Point& x,const Line& L,double& Dpos,double& Dneg) const 
@@ -151,15 +167,25 @@ class OjaData: public Data
 		{return size();}
     int hyperplanes() const
 		{return planes ? planes : choices(size(),dim());}
+	set<int> get_includedPlanes() const
+		{ return includedPlanes; }
     int crossingpoints() const
 		{return choices(hyperplanes(),dim());}
 	
     void scale();
     Point scaled(Point x) const;
     Point descaled(Point x) const;
+
+	Point min() const;
+	Point max() const;
+	void set_bounded_min_max(const Point bmin, const Point bmax);
+	void add_bound_points(const vector<Point> & crossing_points);
+	void add_bound(const Hyperplane& bound, const set<int>& crossings);
+	int get_original_size() const 
+		{return original_size;}
 };
 
-class OjaLine:private Line 
+class OjaLine:public Line 
 {
     const OjaData *data;
     IndexSet id;
@@ -179,7 +205,7 @@ class OjaLine:private Line
     void set(const IndexSet& I,const Line& L);
 
 	int dim() const;
-	const OjaData* Data() const
+	inline const OjaData* Data() const
 		{return data;}
     Line line() const
 		{return (Line)*this;}
@@ -216,11 +242,16 @@ class DotSet
 	double h0;
 
 	void generate_dots();
+	void generate_dots_bounded();
+	void get_common_coefs(Point& h, double& h0);
+
+	set<int> find_valid_bounds(set<int>& includedPlanes, const OjaData* data, Point& x);
 	
 public:
 
 	DotSet(const OjaLine& L);
 	DotSet(const OjaLine* L);
+	DotSet(const OjaLine* L, Point& h, double& h0);
 	~DotSet();
 	
 	void sort();
@@ -231,7 +262,7 @@ public:
 		{return line->dim();}
 	pair<double,int>& dot(int index) const;
 	
-	const OjaData* Data() const
+	inline const OjaData* Data() const
 		{return line->Data();}
 	Point point_at(double t) const
 		{return line->line().at(t);}

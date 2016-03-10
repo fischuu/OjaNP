@@ -19,6 +19,7 @@
  */
 
 #include <R.h>
+#include "interface.h"
 #include "oja_geometry.h"
 #include "matrix_wrapper.h"
 #include "global.h"
@@ -79,6 +80,18 @@ extern "C"
 			  D.set_median_method(FOLLOW_INTERSECTION_LINES);
 			  D.set_max_searchlines(int(*param1));
 			  v_output=D.median();
+			  break;
+		  }
+
+		  case 6:		//AP method
+		  {
+			  if (bool(*param3))
+				D.set_median_method(FOLLOW_INTERSECTION_LINES_BOUNDED);
+			  else
+				D.set_median_method(FOLLOW_INTERSECTION_LINES_BOUNDED_APPROX);
+			  D.set_max_searchlines(int(*param1));
+			  D.set_volume(double(*param2));
+			  v_output = D.median();
 			  break;
 		  }
 			  

@@ -69,6 +69,8 @@ OjaData::OjaData(const char* filename) : Data(filename)
 
 	if(oja)
 		oja >> exact_median;
+
+	original_size = size();
 }
 
 OjaData::OjaData(int vecdim,int size) : Data(vecdim,size)
@@ -78,6 +80,7 @@ OjaData::OjaData(int vecdim,int size) : Data(vecdim,size)
     plane=0;
     planes=0;
     planeindex=0;
+	original_size = size;
 }
 
 OjaData::~OjaData()
@@ -114,7 +117,7 @@ void OjaData::regenerate_hyperplanes()
 	//      int -> Index. Samalla kaikista funktioista voisi poistaa
 	//      erillisen if(planes) testin ja siirt�� sen hyperplane():een.
 	int hyps=hyperplanes();
-	planeindex = new Index[hyps];
+	planeindex = new Index[hyps + MAX_BOUNDS];
     errif(!planeindex,"OjaData::generate_hyperplanes: out of memory");
     
     Index I(dim(),size());
@@ -177,8 +180,35 @@ Point OjaData::gradient(const Point& x) const
     return Gr;
 }
 
+Point OjaData::oja_rank(const Point& x) const
+{
+	errif(x.dim() != dim(), "OjaData::oja_rank: Illegal dimension on point " << x);
+
+	if (plane)
+		return plane->oja_rank(x);
+
+	Point Gr(dim());
+	Simplex S;
+	double sgn;
+	double k = 0;
+
+	for (Index I(dim(), size()); I; I++, k++)
+	{
+		S.get(*this, I, x);
+		sgn = S.sign();
+		for (int j = 0; j<dim(); j++)
+			Gr[j] += S.row_cof(j + 1) * sgn;
+	}
+
+	for (int i = 0; i < dim(); i++)
+		Gr[i] /= k;
+
+	return Gr;
+}
+
 double OjaData::oja(const Point& x) const
 {
+	if (size() == 0) return -1;
     errif(x.dim() != dim(),"OjaData::oja: Illegal dimension on point " << x);
 	
     if(plane)
@@ -302,4 +332,51 @@ void OjaData::scale()
 			norm_scale[i] = 1.0;
     for(int i=0; i<size(); i++)
 		operator[](i) =  scaled(operator[](i));
+}
+
+Point OjaData::min() const
+{
+	if (boundedMin.dim() != 0)
+		return boundedMin;
+
+	return (Data::min());
+}
+
+Point OjaData::max() const
+{
+	if (boundedMax.dim() != 0)
+		return boundedMax;
+
+	return (Data::max());
+}
+
+void OjaData::set_bounded_min_max(const Point bmin, const Point bmax)
+{
+	boundedMin = min();
+	boundedMax = max();
+
+	double enlarge = 1.0e-8;
+
+	for (int j = 0; j < dim(); j++)
+	{
+		if (boundedMax[j] >= bmax.coord(j))
+			boundedMax[j] = bmax.coord(j) + enlarge;
+		if (boundedMin[j] <= bmin.coord(j))
+			boundedMin[j] = bmin.coord(j) - enlarge;
+	}
+}
+
+void OjaData::add_bound_points(const vector<Point> & crossing_points){
+	enlarge(crossing_points);
+
+	/*for (int i = 0; i < planes; i++){
+		planeindex[i].set_limit(size());
+	}*/
+}
+
+void OjaData::add_bound(const Hyperplane& bound, const set<int>& crossings){
+	plane->add(bound);
+	includedPlanes.insert(planes);
+	planeindex[planes] = Index(dim(), size(), crossings);
+	planes++;
 }

@@ -72,10 +72,11 @@ void OjaPoint::set_index(const IndexSet& I,const Index& i)
     errif(I.limit() > data->size(),"OjaPoint::set_index: maximum value "
 	  << I.limit() << " is too big for data");
     
-    IndexSet new_id(i.dim(),i.dim(),i.limit()); 
-    for(int j=0; j<i.dim()-1; j++)
+	int parts = I.indices();
+	IndexSet new_id(parts+1, i.dim(), i.limit());
+	for (int j = 0; j<parts; j++)
 		new_id[j] = I[j];
-    new_id[i.dim()-1] = i;
+	new_id[parts] = i;
     new_id.validate();
     
     id = new_id;
@@ -201,6 +202,12 @@ DotSet::DotSet(const OjaLine* L)
 	generate_dots();
 }
 
+DotSet::DotSet(const OjaLine* L, Point& h, double& h0)
+{
+	line = L;
+	get_common_coefs(h, h0);
+}
+
 DotSet::~DotSet()
 {
 	if(sorted)
@@ -209,8 +216,13 @@ DotSet::~DotSet()
 
 void DotSet::generate_dots()
 {
-	sorted=false;
-	
+	if (Data()->get_includedPlanes().size() != 0){
+		generate_dots_bounded();
+		return;
+	}
+
+	sorted = false;
+
 	h = Point(dim());
 	h0 = 0;
 	
@@ -272,6 +284,163 @@ void DotSet::generate_dots()
 			h0 += Data()->hyperplane(i).cof0_at(x);
 		}
     }
+}
+
+set<int> DotSet::find_valid_bounds(set<int>& includedPlanes, const OjaData* data, Point& x)
+{
+	double t;
+	pair<double, int> d0;
+	Line L = line->line();
+	set<int> valid_bounds;
+	x = Point();
+	
+    Point min=Data()->min();
+    Point max=Data()->max();
+
+	for (set<int>::reverse_iterator it = includedPlanes.rbegin(); it != includedPlanes.rend(); ++it){
+		if (!data->hyperplane(*it).isBound) break;
+		if (!L.intersect(data->hyperplane(*it), t)) continue;
+
+		d0.first = t;
+		d0.second = *it;
+		dotlist.push_back(d0);
+	}
+	sort();
+	if (dotarray->size() == 0){
+		return set<int>();
+	}
+	else
+	if (dotarray->size() == 2){
+		valid_bounds.insert((*dotarray)[0].second);
+		valid_bounds.insert((*dotarray)[1].second);
+	}
+	else {
+		int i;
+		Point ref = point(dot(0));
+		for (i = 0; i < dotarray->size() - 1; i++){
+			if (hyperplane(dot(i + 1)).side(ref) > 0){
+				// the point on this bound is also on the positive side of the next bound
+				if (!point(dot(i)).in_box(min, max) || !point(dot(i + 1)).in_box(min, max)){
+					return set<int>();
+				}
+				valid_bounds.insert((*dotarray)[i].second);
+				valid_bounds.insert((*dotarray)[i + 1].second);
+				x = point(dot(i));
+				break;
+			}
+		}
+		for (i = i + 1; i < dotarray->size() - 1; i++){
+			if (hyperplane(dot(i + 1)).side(ref) < 0){
+				// the line lies outside the bounded region
+				x = Point();
+				valid_bounds.clear();
+				break;
+			}
+		}
+	}
+
+	sorted = false;
+	dotlist.clear();
+	delete dotarray;
+
+	return valid_bounds;
+}
+
+void DotSet::get_common_coefs(Point& h, double& h0)
+{
+	sorted = false;
+
+	const OjaData* data = Data();
+	h = Point(dim());
+	h0 = 0;
+
+	double t;
+	pair<double, int> d0;
+	Line L;
+	Point x;
+
+	L = line->line();
+
+	set<int> includedPlanes = data->get_includedPlanes();
+	int hyperplanes_count = data->hyperplanes();
+	set<int> valid_bounds = find_valid_bounds(includedPlanes, data, x);
+
+	if (valid_bounds.size() == 0){
+		h = Point();
+		return;	// the line lies out of bounds
+	}
+
+	errif(x.is_nil(), "DotSet::generate_dots: no points at box");
+
+	for (int i = 0; i < hyperplanes_count; i++)
+	{
+		if (!includedPlanes.count(i))
+		{
+			const Hyperplane& hi = data->hyperplane(i);
+			h += hi.cof_at(x);
+			h0 += hi.cof0_at(x);
+		}
+	}
+}
+
+void DotSet::generate_dots_bounded()
+{
+	sorted = false;
+
+	const OjaData* data = Data();
+	Point min = data->min();
+	Point max = data->max();
+	h = data->h;
+	h0 = data->h0;
+
+#ifdef BOX_ENLARGEMENT
+	// Eliminoidaan py�ristysvirheist� johtuva pisteiden katoaminen
+	// suurentamalla laatikkoa
+	for (int i = 0; i < dim(); i++)
+	{
+		min[i] -= BOX_ENLARGEMENT;
+		max[i] += BOX_ENLARGEMENT;
+	}
+#endif
+
+	double t;
+	pair<double, int> d0;
+	Line L;
+	Point p, x;
+
+	L = line->line();
+	IndexSet lind = line->index();
+
+	set<int> includedPlanes = data->get_includedPlanes();
+	int hyperplanes_count = data->hyperplanes();
+	set<int> valid_bounds = find_valid_bounds(includedPlanes, data, x);
+	if (valid_bounds.size() == 0) return;
+
+
+	errif(x.is_nil(), "DotSet::generate_dots: no points at box");
+
+	for (set<int>::iterator it = includedPlanes.begin(); it != includedPlanes.end(); ++it)
+	{
+		int i = *it;
+		const Hyperplane& hi = data->hyperplane(i);
+		if (L.intersect(hi, t))
+		{
+			if (hi.isBound && !valid_bounds.count(i))
+				continue;
+			p = point_at(t);
+			if (p.in_box(min, max) && !lind.has(data->hyperplaneindex(i)))
+			{
+				d0.first = t;
+				d0.second = i;
+				dotlist.push_back(d0);
+				continue;
+			}
+		}
+		if (!hi.isBound){
+			h += hi.cof_at(x);
+			h0 += hi.cof0_at(x);
+		}
+	}
 }
 
 void DotSet::sort()
@@ -401,26 +570,75 @@ OjaPoint DotSet::min(double& ojafn)
 	// Apumuuttuja.
 	double o;
 
+	int start = 1;
+
+	if (Data()->get_includedPlanes().size() == 0){
+
 	// Lasketaan ensin summa aloituspisteess� ja otetaan se
 	// pohjatulokseksi.   
 	for(int i=0; i<n; i++)
 	{
-		gi += hyperplane(dot(i)).cof_at(x0);
-		g0 += hyperplane(dot(i)).cof0_at(x0);
+		const Hyperplane& h = hyperplane(dot(i));
+		if (h.isBound)
+			continue;
+		gi += h.cof_at(x0);
+		g0 += h.cof0_at(x0);
 	}
 
-	omin=((h | x)+h0 + (gi | x)+g0);
-	min=0;
+	}
+	else {
+		bool had_bound = false;
+		x0 = xn;
+	// Lasketaan ensin summa aloituspisteess� ja otetaan se
+	// pohjatulokseksi.   
+	for (int i = 0; i < n; i++)
+	{
+		const Hyperplane& hp = hyperplane(dot(i));
+		if (hp.isBound){
+			if (!had_bound){
+				x0 = point(0);
+				x = point(i);
+				min = i;
+				start = i + 1;
+				had_bound = true;
+			}
+			continue;
+		}
+		gi += hp.cof_at(x0);
+		g0 += hp.cof0_at(x0);
+	}
+	}
 
+
+	omin=((h | x)+h0 + (gi | x)+g0);
+#ifdef VS 
+#ifdef DEEPDEBUG
+	double real = OjaData::S.oja(x);
+#endif 
+#endif
+	
+	bool f1 = false, f2 = false;
 	// K�yd��n l�pi kaikki leikkauspisteet vaihtaen hypertasoja
 	// summasta oikean merkkisiksi.
-	for(int i=1; i<n; i++)
+	for (int i = start; i<n; i++)
 	{	
-   		gi -= hyperplane(dot(i-1)).cof_at(x0);
-   		g0 -= hyperplane(dot(i-1)).cof0_at(x0);
+		const Hyperplane& hp = hyperplane(dot(i - 1));
+		if (!hp.isBound)
+		{
+			gi -= hp.cof_at(x0);
+			g0 -= hp.cof0_at(x0);
 
- 		gi += hyperplane(dot(i-1)).cof_at(xn);
-  		g0 += hyperplane(dot(i-1)).cof0_at(xn);
+			gi += hp.cof_at(xn);
+			g0 += hp.cof0_at(xn);
+		}
+		else {
+#ifdef VS 
+#ifdef DEEPDEBUG
+			real = OjaData::S.oja(x);
+#endif 
+#endif
+			if (i != start) break; 
+		}
 
 		x=point(i);
 		o=((h | x)+h0 + (gi | x)+g0);
@@ -437,7 +655,7 @@ OjaPoint DotSet::min(double& ojafn)
 	p.set_index(line->index(),Data()->hyperplaneindex(dot(min).second));
 	p.set_location(point(dot(min)));
 	ojafn=omin;
-	
+	//cout << p << "; " << line->index() << "; " << Data()->hyperplaneindex(dot(min).second) << endl;
 	return p;
 #endif
 	
@@ -595,6 +813,10 @@ OjaPoint OjaLine::min(double& ojafn) const
     errif(!data,"OjaLine::min:no data");
 
 	DotSet DS(this);
+
+	if (DS.size() == 0)
+		return OjaPoint();
+
 	double f;
 	OjaPoint q=DS.min(f);
 

@@ -49,34 +49,34 @@ class matrix : public Matrix::matrix<double>
 	
 /* 	matrix& operator=(const matrix&M) */
 /* 	{return Matrix::matrix<double>::operator=(M);} */
-	
-	int rows() const
+		
+	inline int rows() const
 		{return this->Matrix::matrix<double>::RowNo();}
-	int columns() const
+	inline int columns() const
 		{return this->Matrix::matrix<double>::ColNo();}
-	double at(int r,int c) const
+	inline double at(int r, int c) const
 		{Matrix::matrix<double>* p=(Matrix::matrix<double>*)(this);
 		return p->Matrix::matrix<double>::operator()(r,c);}
 	
-    matrix operator*(const matrix&M)
+	inline matrix operator*(const matrix&M)
 		{Matrix::matrix<double> ret;
 		ret=*this;
 		ret*=M;
 		return ret;}
 
-	matrix operator*(double t) const
+	inline matrix operator*(double t) const
 		{Matrix::matrix<double> ret;
 		ret=*this;
 		ret*=t;
 		return ret;}		
 
-	double det() const
+	inline double det() const
 		{return this->Det();}
-	matrix trans() const
+	inline matrix trans() const
 		{return static_cast<matrix>(Matrix::operator~(*this));}
-	matrix inv() const
+	inline matrix inv() const
 		{return (1.0/det()) * this->Adj();}
-	valarray<double> solve(const valarray<double>& v) const
+	inline valarray<double> solve(const valarray<double>& v) const
 		{return to_vector(this->Solve(to_matrix(v)));}
 };
 

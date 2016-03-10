@@ -109,6 +109,7 @@ class Index
     Index();
     Index(int dim,int max_value)
 		{initialize(dim,max_value);}
+	Index(int dim, int max_value, set<int> digits);
     Index(const Index& i);
     virtual ~Index();
     
@@ -126,6 +127,8 @@ class Index
 		{return digits;}
 	int limit() const
 		{return max;}
+	void set_limit(int lim)
+		{ max = lim;}
 	virtual int combinations() const;
 	int has(int value) const; 
 	bool has_sub_set(const Index& I) const;
@@ -188,6 +191,7 @@ class IndexSet
     IndexSet();
     IndexSet(int num_of_idxs,int dim,int max_value)
 		{initialize(num_of_idxs,dim,max_value);}
+	IndexSet(int dim, int max_value, const vector<set<int> >&  indexes);
     IndexSet(const IndexSet& i);
     virtual ~IndexSet();
     IndexSet& operator=(const IndexSet& i);    
@@ -204,7 +208,8 @@ class IndexSet
 		{return indices() ? digit[0].limit() : 0;} 
     virtual int combinations() const; 
 
-    int has(int value) const; 
+	int has(Index value) const;
+	int has(int value) const;
 	int common_digit() const; 
     bool has_common_digit() const
 		{return common_digit() >= 0;} 
@@ -293,6 +298,7 @@ class IndexIdentifier
 		{return dimension;}
 	int limit() const
 		{return parts ? part[0].limit() : 0;}
+	int is_single_point() const;
 
     // Dimensioltaan yht� suurempien objektien m��r� (tai INT_MAX jos ylivuoto).
 	int sup_objects() const;
@@ -310,6 +316,7 @@ class IndexIdentifier
 	IndexIdentifier format() const; // osien koot d1+d2+d3 indeksin�
 
 	vector<int> partitions() const; // Palauttaa hypertasonippujen koot.
+	int real_partitions(int max) const; // number of partitions without bounds
 };
 
 istream& operator>>(istream&,const IndexIdentifier&);
@@ -324,7 +331,7 @@ class JokerIdentifier : public IndexIdentifier
   public:
 
  	JokerIdentifier(): IndexIdentifier() {}
- 	JokerIdentifier(const IndexIdentifier& Id) : IndexIdentifier(Id) {joker_expand();}
+ 	JokerIdentifier(const IndexIdentifier& Id) : IndexIdentifier(Id) {/*joker_expand(); is called from get()*/}
  	virtual ~JokerIdentifier() {}
 
 	JokerIdentifier& operator=(const JokerIdentifier& J)
@@ -350,5 +357,24 @@ class JokerIdentifier : public IndexIdentifier
 
 inline int compare(const JokerIdentifier&J1,const JokerIdentifier&J2)
 {return compare((IndexIdentifier)J1,(IndexIdentifier)J2);}
+
+
+void inline remove_subset(set<int>& from, const set<int>& rem){
+	for (set<int>::iterator i = rem.begin(); i != rem.end(); i++){
+		int e = *i;
+		from.erase(e);
+	}
+}
+
+bool inline is_subset(set<int>& bigset, const set<int>& subset){
+	for (set<int>::iterator i = subset.begin(); i != subset.end(); i++){
+		int e = *i;
+		if (!bigset.count(e))
+			return false;
+	}
+	return true;
+}
+
+vector<set<int> > generate_unique_indexes(vector<set<int> >& bounds_crossing_indexes, set<int>& partset, int dim);
 
 #endif

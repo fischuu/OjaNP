@@ -22,6 +22,7 @@
 #include "matrix_wrapper.h"
 #include <math.h>
 #include <fstream>
+#include <algorithm>
 
 using namespace std; //df
 
@@ -154,6 +155,15 @@ void Data::enlarge(const char* filename)
     ifstream F(filename);
     errif(!F,"Data::enlarge: file '" << filename << "' not found");
     F >> *this;
+}
+
+void Data::enlarge(const vector<Point> &Points){
+	for (int i = 0; i<Points.size(); i++)
+	{
+		errif(Points[i].dim() != dimension, "Data::enlarge: vector has dimension "
+			<< Points[i].dim() << " but data set has " << dimension);
+	}
+	data->insert(data->end(), Points.begin(), Points.end());
 }
 
 void Data::set_dim(int d)

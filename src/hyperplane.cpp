@@ -36,6 +36,7 @@ Hyperplane::Hyperplane()
 {
     cofs = 0;
     cof = 0;
+    isBound = false;
 }
 
 Hyperplane::~Hyperplane()
@@ -49,6 +50,7 @@ Hyperplane::Hyperplane(int dim)
     errif(dim < 1,"Hyperplane::Hyperplane: non-positive dimension " << dim);
     cofs = dim+1;
     cof = new double[cofs];
+    isBound = false;
     
     errif(!cof,"Hyperplane::Hyperplane: out of memory");
 }
@@ -62,10 +64,12 @@ Hyperplane::Hyperplane(const Hyperplane& H)
 
 Hyperplane& Hyperplane::operator=(const Hyperplane& H)
 {
+	if (H.cof == 0) return *this;	// uninitialized hyperplane
     set_dim(H.dim());
     for(int i=0; i<cofs; i++)
 		cof[i] = H.cof[i];
-	
+    isBound = H.isBound;
+
     return *this;
 }
 
@@ -106,7 +110,7 @@ Point Hyperplane::normal() const
 
 Point Hyperplane::cof_at(const Point& x) const
 {
-	double k = (1.0 / double(fact(dim())));
+	static double k = (1.0 / double(fact(dim())));
 
 	if(side(x) < 0)
 		return  -k * normal();
@@ -116,7 +120,7 @@ Point Hyperplane::cof_at(const Point& x) const
 
 double Hyperplane::cof0_at(const Point& x) const
 {
-	double k = (1.0 / double(fact(dim())));
+	static double k = (1.0 / double(fact(dim())));
 	if(side(x) < 0)
 		return -k * c();
 	else
@@ -138,9 +142,22 @@ void Hyperplane::get(const Data& D,const Index& I)
 	  << " and " << I.dim() << " do not match");
 	
     set_dim(D.dim());
-    Simplex S;
+	Simplex S(D.dim());
     S.get(D,I);
     for(int i=0; i<cofs; i++)
+		cof[i] = S.row_cof(i);
+}
+
+void Hyperplane::get(vector<Point> points)
+{
+	errif(points.size() == 0, "Hyperplane::get: vector points has no elements")
+	// This would be checked in Simplex.get(points) // errif(D.dim() != I.dim(), "Hyperplane::get: dimensions " << D.dim() << " and " << I.dim() << " do not match");
+
+	set_dim(points[0].dim());
+	points.push_back(Point(dim())/*Zero*/);
+	Simplex S;
+	S.get(points);
+	for (int i = 0; i<cofs; i++)
 		cof[i] = S.row_cof(i);
 }
 
@@ -168,7 +185,7 @@ bool Hyperplane::intersect(const Line& L,double& t) const
     }
 	
     t = 0.0;
-    if(b==0.0)
+	if (abs(b)<1.0e-10)
 		return false;
     
     t = -a/b;
@@ -331,10 +348,26 @@ void HyperplaneSet::get(const Data& D,const IndexSet& I)
 void HyperplaneSet::get_all(const Data& D)
 {
     Index I(D.dim(),D.size());
-    resize(I.combinations());
+	int combnum = I.combinations();
+	resize(combnum + MAX_BOUNDS);
+	planes = combnum;
 	
     for(int i=0; I; i++,I++)
 		plane[i].get(D,I);
+}
+
+void HyperplaneSet::add(const Hyperplane& H)
+{
+	errif (bounds >= MAX_BOUNDS, "HyperplaneSet::add: too much bounds")
+
+	plane[planes++] = H;
+	bounds++;
+}
+
+void HyperplaneSet::get(const vector<Hyperplane>& hyperplanes){
+	resize(hyperplanes.size());
+	for (int i = 0; i<hyperplanes.size(); i++)
+		plane[i] = hyperplanes[i];
 }
 
 Point HyperplaneSet::crossing_point() const
@@ -414,6 +447,23 @@ Point HyperplaneSet::gradient(const Point& x) const
 		Gr += sgn * k * plane[i].normal();
 	}
 	
+	return Gr;
+}
+
+Point HyperplaneSet::oja_rank(const Point& x) const
+{
+	double sgn;
+	Point Gr(dim());
+
+    for(int i=0; i<planes; i++)
+	{
+		sgn = plane[i].side(x);
+		Gr += sgn * plane[i].normal();
+	}
+	
+	for (int i = 0; i < dim(); i++)
+		Gr[i] /= planes;
+
 	return Gr;
 }
 

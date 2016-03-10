@@ -55,20 +55,15 @@ int fact(int k)
     return factorial[k];
 }
 
-int choices(int n, int k)
+unsigned long choices(int n, int k)
 {
 	errif(n < 1,"choices: n is less than 1 (n = " << n << ")");
 	errif(k < 1 || k > n,"choices: illegal value k (k = " << k 
  	  << ", n = " << n << ")");
-	
-	int z=1;
-	for(int i=n-k+1; i<=n; i++)
-	{
-		errif(z > INT_MAX/i,"choices: overflow");
- 		z *= i;
-	}
 
-	return z/fact(k);
+	unsigned long r = n--; unsigned int d = 2;
+	while (d <= k){ r *= n--; r /= d++; }
+	return r;
 }
 
 double round(double x,double prec)

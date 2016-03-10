@@ -39,6 +39,7 @@
 #define LOG(a) {}
 #define TRACE(a) {}
 #define LOGIF(a,b) {}
+#define FLOG(a) {if(0)fout << a << endl;}
 
 using namespace std;
 
@@ -71,6 +72,9 @@ OjaPoint OjaData::median()
 		  return medianGradientDescent();
 	  case FOLLOW_INTERSECTION_LINES:
 		  return medianFollowIntersectionLines();
+	  case FOLLOW_INTERSECTION_LINES_BOUNDED:
+	  case FOLLOW_INTERSECTION_LINES_BOUNDED_APPROX:
+		  return medianFollowIntersectionLinesBounded();
 	  case BRUTE_FORCE:
 		  return medianBruteForceSearch();
 	  case LATTICE_APPROX:
@@ -270,13 +274,25 @@ OjaPoint OjaData::medianBruteForceSearch()
 OjaPoint OjaData::medianFollowIntersectionLines()
 {
 	int fail_count=0;
-
+	int counter = 1;
 	//if(verbose)
 	//	cout << "Max. search lines " << max_searchlines << endl;
-	
+
+
+	stringstream filename;
+	filename << "D:\\OjaExperiments\\" << dim() << " " << size() << " (" << (*this)[0][0] << ").txt";
+	ofstream fout(filename.str().c_str());
+	clock_t begin = clock();
+	FLOG("d: " << dim()); FLOG("n: " << size()); FLOG("volume: 100"); FLOG("");
+
+
 	/* 1.*/
 	LOG("Generating hyperplanes");
 	generate_hyperplanes();
+
+	clock_t hp_generated = clock();
+
+	FLOG("hp generated " << double(hp_generated - begin) / CLOCKS_PER_SEC);
 
 	/* 2. */
     OjaLine L(*this);
@@ -296,7 +312,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 	OjaPoint T(*this),hatT(*this);
 	double hatD,D;
 
-	LOG("Minimizing " << Lid);
+	LOG(counter << " Minimizing " << Lid);  counter++;
 #ifdef GRAPHICS
 	set_line(L.line());
 	wait_if_pause();
@@ -374,7 +390,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 	LOG("  Best direction " << Lid << " (projection " << proj_max << ")");
 
 	/* 19. */
-	LOG("Minimizing " << Lid);
+	LOG(counter << " Minimizing " << Lid);  counter++;
 #ifdef GRAPHICS
 	set_line(L.line());
 	wait_if_pause();
@@ -403,6 +419,17 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 		cout << calL.size() << " lines minimized" << endl;
 		cout << fail_count << " failures" << endl;
 	}*/
+	
+	LOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
+	FLOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
+
+	clock_t end = clock();
+	double elapsed_secst = double(end - begin) / CLOCKS_PER_SEC;
+	double elapsed_secs = double(end - hp_generated) / CLOCKS_PER_SEC;
+
+	FLOG("counter: " << counter - 1 << "\nTime total: " << elapsed_secst << "\nTime count: " << elapsed_secs);
+
+	fout.close();
 
 	return T;
 }

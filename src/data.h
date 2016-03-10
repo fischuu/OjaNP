@@ -39,11 +39,12 @@ public:
 	matrix covariance() const;
     int center_index() const;
     Point center() const;   
-    Point min() const;
-    Point max() const;
+    virtual Point min() const;
+	virtual Point max() const;
 	
     void enlarge(int n);
     void enlarge(list<Point> &Points);
+	void enlarge(const vector<Point> &Points);
     void enlarge(const char* filename);
 	void enlarge(const Point& point);
 	

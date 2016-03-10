@@ -18,6 +18,8 @@ class Hyperplane
     void set_dim(int d);
 	
   public:
+
+	bool isBound;
     
     Hyperplane();
     ~Hyperplane();
@@ -26,6 +28,8 @@ class Hyperplane
     Hyperplane(int dim);   
 	
     void get(const Data& D,const Index& I);
+	void get(Point& point, Point& grad); // create custom hyperplane through[point] with normal = [grad] 
+	void get(vector<Point> points); // create custom hyperplane by [dim] points
 
     double operator[](int index) const;
     int dim() const
@@ -49,10 +53,13 @@ class Hyperplane
     friend ostream& operator <<(ostream& os,const Hyperplane& H);    
 };
 
+const int MAX_BOUNDS = 10;
+
 class HyperplaneSet
 {
     Hyperplane* plane;
     int planes;
+	int bounds;
 	
     void resize(int new_size);
     
@@ -73,10 +80,13 @@ class HyperplaneSet
 		{return planes;}
     void get(const Data& D,const IndexSet& I);
     void get_all(const Data& D);  
+	void get(const vector<Hyperplane>& hyperplanes);
+	void add(const Hyperplane& H);
     Point crossing_point() const;
     Point crossing_point(const Index& I) const;
     double oja(const Point& x) const;
     Point gradient(const Point& x) const;
+	Point oja_rank(const Point& x) const;
 	void oja_and_gradient(const Point& x,double& oja,Point& grad) const;
 };
 

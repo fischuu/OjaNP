@@ -64,6 +64,7 @@ public:
    matrix<T>  Solve (const matrix<T> & v) const throw (matrix_error) ;
    matrix<T>  Adj () const throw (matrix_error) ;
    T Det () const throw (matrix_error) ;
+   T Det_destroyable() throw (matrix_error);
    T Norm () throw () ;
    T Cofact (size_t row, size_t col) const throw (matrix_error) ;
    T Cond () throw () ;
@@ -677,6 +678,35 @@ matrix<T> ::Det () const throw (matrix_error)
    return detVal;
 }
 
+/**
+* Calculates det without making a temp matrix, destroying the source one. To be used if the given matrix is already a copy
+*/
+template <class T>  inline T
+matrix<T> ::Det_destroyable() throw (matrix_error)
+{
+	size_t i, j, k;
+	T piv, detVal = T(1);
+
+	if (_m->Row != _m->Col)
+		throw matrix_error("matrixT::Det(): Determinant a non-square matrix!");
+
+	for (k = 0; k < _m->Row; k++)
+	{
+		int indx = pivot(k);
+		if (indx == -1)
+			return 0;
+		if (indx != 0)
+			detVal = -detVal;
+		detVal = detVal * _m->Val[k][k];
+		for (i = k + 1; i < _m->Row; i++)
+		{
+			piv = _m->Val[i][k] / _m->Val[k][k];
+			for (j = k + 1; j < _m->Row; j++)
+				_m->Val[i][j] -= piv * _m->Val[k][j];
+		}
+	}
+	return detVal;
+}
  
 template <class T>  inline T
 matrix<T> ::Norm () throw () 
@@ -726,7 +756,7 @@ matrix<T> ::Cofact (size_t row, size_t col) const throw (matrix_error)
       }
       i1++;
    }
-   T  cof = temp.Det();
+   T  cof = temp.Det_destroyable();
    if ((row+col)%2 == 1)
       cof = -cof;
 
