@@ -2,7 +2,7 @@ import(ICS)
 importFrom(ICSNP, HR.Mest, spatial.median)
 
 export(ojaMedian, ojaMedianFn, hyperplane, ojaRCM, ojaSCM, ojaSign, ojaMedianControl, ojaRank, oja1sampleTest, ojaCsampleTest, 
-       ojaMedianEvo, ojaMedianGrid, ojaMedianEx, ojaSignedRank)
+       ojaMedianEvo, ojaMedianGrid, ojaMedianEx, ojaMedianExB, ojaSignedRank)
 
 S3method(ojaCsampleTest, default)
 S3method(ojaCsampleTest, formula)

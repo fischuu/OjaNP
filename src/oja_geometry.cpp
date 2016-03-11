@@ -286,6 +286,10 @@ void DotSet::generate_dots()
     }
 }
 
+/*
+Searching the borders of the bounded region along a line
+Copyright(C) 2015 Oleksii Pokotylo
+*/
 set<int> DotSet::find_valid_bounds(set<int>& includedPlanes, const OjaData* data, Point& x)
 {
 	double t;
@@ -346,6 +350,10 @@ set<int> DotSet::find_valid_bounds(set<int>& includedPlanes, const OjaData* data
 	return valid_bounds;
 }
 
+/*
+Getting the coefficients' sums of the hyperplanes outside the bounded region
+Copyright(C) 2015 Oleksii Pokotylo
+*/
 void DotSet::get_common_coefs(Point& h, double& h0)
 {
 	sorted = false;
@@ -383,6 +391,10 @@ void DotSet::get_common_coefs(Point& h, double& h0)
 	}
 }
 
+/*
+The modification of the generating procedure for the bounded search
+Copyright(C) 2015 Oleksii Pokotylo
+*/
 void DotSet::generate_dots_bounded()
 {
 	sorted = false;

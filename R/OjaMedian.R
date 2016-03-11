@@ -64,7 +64,7 @@ function(X, alg="evolutionary", sp=1, na.action=na.fail, control=ojaMedianContro
     param2 <- control$volume
     param3 <- control$boundedExact
     param4 <- debug <- 0
-    debug = 1
+    #debug = 1
     res<-.C("r_oja", rows, cols, X, vec = outvec, y, as.integer(action), as.double(control$maxlines), as.double(param2), as.integer(param3), as.integer(param4), as.integer(debug),1)
     RES <- res$vec
   }

@@ -43,6 +43,7 @@ Hyperplane::~Hyperplane()
 {
     if(cof)
 		delete[] cof;
+	cof = 0;
 }
 
 Hyperplane::Hyperplane(int dim)
@@ -207,15 +208,15 @@ Point Hyperplane::intersect(const Line& L) const
 
 double Hyperplane::side(const Point& x) const
 {
-	errif(x.dim() != dim(),"Hyperplane::side: dimensions " << dim()
-	  << " and " << x.dim() << " do not match");
-    double sg;
-    sg = ((*this) | x) + c();
-    if(sg < 0)
+	errif(x.dim() != dim(), "Hyperplane::side: dimensions " << dim()
+		<< " and " << x.dim() << " do not match");
+	double sg;
+	sg = ((*this) | x) + c();
+	if (sg < 0)
 		return -1.0;
-    else if(sg > 0)
+	else if (sg > 0)
 		return 1.0;
-    else
+	else
 		return 0.0;
 }
 

@@ -36,10 +36,14 @@
 //#define TRACE(a) {if(trace)cerr << a << endl;}
 //#define LOGIF(a,b) {if(debug && (a))cout << b << endl;}
 
+#include <ctime>
+#include <fstream>
+#include <sstream>
+
 #define LOG(a) {}
 #define TRACE(a) {}
 #define LOGIF(a,b) {}
-#define FLOG(a) {if(0)fout << a << endl;}
+#define FLOG(a) {}//{if(0)fout << a << endl;}
 
 using namespace std;
 
@@ -278,10 +282,11 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 	//if(verbose)
 	//	cout << "Max. search lines " << max_searchlines << endl;
 
-
+	/*
 	stringstream filename;
 	filename << "D:\\OjaExperiments\\" << dim() << " " << size() << " (" << (*this)[0][0] << ").txt";
 	ofstream fout(filename.str().c_str());
+	*/
 	clock_t begin = clock();
 	FLOG("d: " << dim()); FLOG("n: " << size()); FLOG("volume: 100"); FLOG("");
 
@@ -429,7 +434,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 
 	FLOG("counter: " << counter - 1 << "\nTime total: " << elapsed_secst << "\nTime count: " << elapsed_secs);
 
-	fout.close();
+//	fout.close();
 
 	return T;
 }

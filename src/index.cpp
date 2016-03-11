@@ -64,15 +64,12 @@ SimpleIndex::SimpleIndex(const SimpleIndex& i)
 SimpleIndex& SimpleIndex::operator=(const SimpleIndex& i)
 {
     overflow = i.overflow;
-	int odigits = digits;
     digits = i.digits;
     min = i.min;
-	max = i.max; 
-	if (odigits < digits){
-		if (digit)
-			delete[] digit;
-		digit = new int[digits];
-	}
+    max = i.max;
+    if(digit)
+		delete[] digit;
+    digit = new int[digits];
     
     errif(!digit,"SimpleIndex::operator=: out of memory");
     for(int j=0; j<digits; j++)
@@ -99,6 +96,7 @@ SimpleIndex::~SimpleIndex()
 {
     if(digit)
 		delete[] digit;
+	digit = 0;
 }
 
 SimpleIndex& SimpleIndex::operator++(int)
@@ -294,14 +292,11 @@ Index::Index(const Index& i)
 Index& Index::operator=(const Index& i)
 {
     overflow = i.overflow;
-	int odigits = digits;
     digits = i.digits;
     max = i.max;
-	if (odigits < digits){
-		if (digit)
-			delete[] digit;
-		digit = new int[digits];
-	}
+    if(digit)
+		delete[] digit;
+    digit = new int[digits];
     
     errif(!digit,"Index::operator=: out of memory");
     for(int j=0; j<digits; j++)
@@ -314,6 +309,7 @@ Index::~Index()
 {
     if(digit)
 		delete[] digit;
+	digit = 0;
 }
 
 bool Index::inc_digit(int i)
@@ -668,6 +664,7 @@ IndexSet::~IndexSet()
     {
 		delete[] max;
 		delete[] digit;
+		digit = 0;
     }
 }
 
