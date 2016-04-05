@@ -1,5 +1,8 @@
 LOG of the CHANGES in the package OjaNP
 
+Version 0.9-9:
+* New exact algorithm implemented by Oleksii Pokotylo and Karl Mosler added
+
 Version 0.9-8:
 * Fixed Valgrind warnings
 
