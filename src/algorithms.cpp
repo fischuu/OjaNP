@@ -32,18 +32,20 @@
 #include "graphics.h"
 #endif
 
-//#define LOG(a) {if(debug)cout << a << endl;}
-//#define TRACE(a) {if(trace)cerr << a << endl;}
-//#define LOGIF(a,b) {if(debug && (a))cout << b << endl;}
-
 #include <ctime>
 #include <fstream>
 #include <sstream>
 
+/*
+defined in "global.h"
+//#define LOG(a) {if(debug)cout << a << endl;}
+//#define TRACE(a) {if(trace)cerr << a << endl;}
+//#define LOGIF(a,b) {if(debug && (a))cout << b << endl;}
 #define LOG(a) {}
 #define TRACE(a) {}
 #define LOGIF(a,b) {}
 #define FLOG(a) {}//{if(0)fout << a << endl;}
+*/
 
 using namespace std;
 

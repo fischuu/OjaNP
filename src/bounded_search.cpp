@@ -180,7 +180,7 @@ void clearBounds(vector<Point>& crossing_points, set<int>& used_crossing_points,
 	for (i = 0; i < crossing_points.size(); i++){ used_crossing_points.insert(i); }
 }
 
-#ifdef VS 
+#ifdef _MSC_VER 
 #ifdef DEEPDEBUG
 OjaData OjaData::S = OjaData();
 #endif 
@@ -194,7 +194,7 @@ OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 	//if(verbose)
 	//	cout << "Max. search lines " << max_searchlines << endl;
 
-#ifdef VS 
+#ifdef _MSC_VER 
 #ifdef DEEPDEBUG
 	//  used to test if the objective function equals the real value in DotSet::min
 	LOG("Initializing Reference Data for tesing");
@@ -254,6 +254,7 @@ OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 	double initvol = getVolume(bmin, bmax);
 	double volume;
 
+#ifdef REMOVED_PARTS
 
 if (false)	// Approach B go along the gradients
 {
@@ -405,7 +406,9 @@ if (false) //Approach D build bounds at half of gradient
 #pragma endregion
 }
 
-	clearBounds(crossing_points, used_crossing_points, bounds_crossing_indexes);
+#endif // REMOVED_PARTS
+
+clearBounds(crossing_points, used_crossing_points, bounds_crossing_indexes);
 
 if (true)	// Approach A. reducing procedure
 {
@@ -467,7 +470,7 @@ return pp;
 		else
 		for (int j = 1; j < crossing_points.size(); j++){
 			int sj = (*plane)[i].side(crossing_points[j]);
-			if (s != sj){	// min 2 points of the bounsd lie on different sides => hyperplane crosses the bounded region
+			if (s != sj){	// min 2 points of the bounds lie on different sides => hyperplane crosses the bounded region
 				includedPlanes.insert(i);
 				break;
 			}
@@ -556,7 +559,7 @@ return pp;
 	double hatD, D;
 
 	vector<set<int> > hv(dim() - 1);
-	HyperplaneSet hss(dim() - 1);	// higher precision then takiong a line just by indexes
+	HyperplaneSet hss(dim() - 1);	// higher precision then taking a line just by indexes
 	Index index = Index(dim() - 1, bounds.size() - 1);
 step3:
 	for (; index && h.is_nil(); index++){
@@ -584,6 +587,7 @@ step3:
 		wait_if_pause();
 #endif
 	}
+	errif(L.is_nil(), "Could not find an initial line")
 
 	/*	vector<set<int> > hi(3);
 		hi[0].clear();
@@ -716,7 +720,7 @@ step10:
 		calL.insert(Lid);
 
 		/* 21. */
-//		if (hatD < D)
+		if (hatD < D)
 			goto step10;
 
 		/* 24. */

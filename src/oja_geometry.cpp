@@ -623,7 +623,7 @@ OjaPoint DotSet::min(double& ojafn)
 
 
 	omin=((h | x)+h0 + (gi | x)+g0);
-#ifdef VS 
+#ifdef _MSC_VER 
 #ifdef DEEPDEBUG
 	double real = OjaData::S.oja(x);
 #endif 
@@ -644,7 +644,7 @@ OjaPoint DotSet::min(double& ojafn)
 			g0 += hp.cof0_at(xn);
 		}
 		else {
-#ifdef VS 
+#ifdef _MSC_VER 
 #ifdef DEEPDEBUG
 			real = OjaData::S.oja(x);
 #endif 

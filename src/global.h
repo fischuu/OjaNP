@@ -1,5 +1,6 @@
 /* $Id: global.h,v 1.1 2008/01/25 11:47:49 ruthe Exp $ */
 #include "misc.h"
+#include <R.h>
 
 #ifndef GLOBAL_H
 #define GLOBAL_H
@@ -12,16 +13,21 @@ extern bool verbose;
 extern bool quiet;
 extern bool adaptive;
 
+#ifndef _MSC_VER
+#include <Rcpp.h> 
+#define cout Rcpp::Rcout
+#endif
+
 #ifdef TO_FILE
 #define LOG(a) {}
 #define FLOG(a) {if(debug)fout << a << endl;}
 #else
-#define LOG(a) {if(debug)cout << a << endl;}
+#define LOG(a) {if(debug) cout << a << endl;}
 #define FLOG(a) {}
 #endif
 
-#define TRACE(a) {if(trace)cerr << a << endl;}
-#define LOGIF(a,b) {if(debug && (a))cout << b << endl;}
+#define TRACE(a) {}//if(trace)cerr << a << endl;}
+#define LOGIF(a,b) {if(debug && (a)) cout << b << endl;}
 
 //#define LOG(a) {}
 //#define TRACE(a) {}

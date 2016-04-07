@@ -4,9 +4,10 @@ Title: Multivariate Methods Based on the Oja Median and Related
         Concepts
 Version: 0.9-9
 Date: 2016-04-03
-Author: Daniel Fischer, Jyrki Möttönen, Klaus Nordhausen, Oleksii Pokotylo, Daniel Vogel
+Author: Daniel Fischer, Jyrki MÃ¶ttÃ¶nen, Klaus Nordhausen, Oleksii Pokotylo, Daniel Vogel
 Maintainer: Klaus Nordhausen <klaus.nordhausen@utu.fi>
 Depends: R (>= 2.9.0), ICS, ICSNP
+LinkingTo: Rcpp
 Description: The package provides functions for the Oja median, Oja
         signs and ranks and methods based upon them.
 License: GPL (>= 2)

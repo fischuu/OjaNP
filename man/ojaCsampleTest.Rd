@@ -95,9 +95,9 @@ Note that no theoretical results are available when \dQuote{\code{p}} is not set
 \references{
 \cite{Hettmansperger, T. P. and Oja, H. (1994), Affine invariant multivariate multisample sign test, \emph{Journal of the Royal Statistical Society}, Series B, \bold{56}, 235--249.}
 
-\cite{Hettmansperger, T. P., \enc{Möttönen}{Mottonen}, J. and Oja, H. (1999), Multivariate affine invariant rank tests for several samples, \emph{Statistica Sinica}, \bold{8}, 785--800.} 
+\cite{Hettmansperger, T. P., \enc{MÃ¶ttÃ¶nen}{Mottonen}, J. and Oja, H. (1999), Multivariate affine invariant rank tests for several samples, \emph{Statistica Sinica}, \bold{8}, 785--800.} 
 
-\cite{Visuri, S., Ollila, E., Koivunen, V., \enc{Möttönen}{Mottonen}, J. and Oja, H. (2003), Affine equivariant multivariat rank methods, \emph{Journal of Statistical Planning and Inference}, \bold{114}, 161--185.} 
+\cite{Visuri, S., Ollila, E., Koivunen, V., \enc{MÃ¶ttÃ¶nen}{Mottonen}, J. and Oja, H. (2003), Affine equivariant multivariat rank methods, \emph{Journal of Statistical Planning and Inference}, \bold{114}, 161--185.} 
 }
 \author{
 Klaus Nordhausen
@@ -110,8 +110,8 @@ Klaus Nordhausen
 data(biochem)
 X <- subset(biochem, group=="Control", select=c("comp.1","comp.2"))
 Y <- subset(biochem, group=="Treat", select=c("comp.1","comp.2"))
-ojaCsampleTest(X,Y, alg="ex")
-ojaCsampleTest(X,Y, method="p", alg="ex")
+ojaCsampleTest(X,Y, alg="exact")
+ojaCsampleTest(X,Y, method="p", alg="exact")
 ojaCsampleTest(cbind(comp.1, comp.2) ~ group, score="r", data=biochem)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

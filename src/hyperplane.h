@@ -53,7 +53,7 @@ class Hyperplane
     friend ostream& operator <<(ostream& os,const Hyperplane& H);    
 };
 
-const int MAX_BOUNDS = 10;
+const int MAX_BOUNDS = 30;
 
 class HyperplaneSet
 {

@@ -20,8 +20,11 @@
 
 #include <stdlib.h>
 #include <math.h>
-//AP #include <sys/time.h>
-#include <ctime>
+#ifdef _MSC_VER
+	#include <ctime>
+#else
+	#include <sys/time.h>
+#endif
 #include "error.h"
 #include "random.h"
 
@@ -50,8 +53,11 @@ _random_number_initializer::_random_number_initializer()
 void set_random_seed()
 {
 	//srand48(s); // auskommentiert bei Sebastian Ruthe, weil nicht mit Windows kompatibel
-	//GetRNGstate();
+#ifdef _MSC_VER
 	srand(time(0));
+#else
+	GetRNGstate();
+#endif
 	//srand(int(s));
 }
 
@@ -60,8 +66,11 @@ int random(int min,int max)
 	errif(max < min,"random: illegal bounds " << min << " and " << max);
     //return random()%(max-min+1)+min;		// auskommentiert bei Sebastian Ruthe weil nicht mit Windows kompatibel 
     
+#ifdef _MSC_VER
 	return ((int)(rand() * 32767) % (max - min + 1) + min);  //AP - debug under VC++
-    return ((int)(unif_rand()*32767)%(max-min+1)+min);
+#else
+	return ((int)(unif_rand()*32767)%(max-min+1)+min);
+#endif
 }
 
 

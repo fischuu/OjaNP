@@ -91,8 +91,8 @@ ojaMedian(X, alg = "grid")
 ex <-ojaMedian(X, alg = "exact")
 exb<-ojaMedian(X, alg = "exact_bounded")
 
-ojaMedianFn(data, ex)
-ojaMedianFn(data, exb)
+ojaMedianFn(X, ex)
+ojaMedianFn(X, exb)
 }
 \keyword{multivariate}
 \keyword{nonparametric}

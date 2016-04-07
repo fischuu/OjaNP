@@ -115,7 +115,7 @@ class OjaData: public Data
 	void brute_force_search(OjaLine& L,OjaPoint& p,double hi_score);
 	
   public:
-#ifdef VS 
+#ifdef _MSC_VER 
 #ifdef DEEPDEBUG
 	static OjaData S;
 #endif
