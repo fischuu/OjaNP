@@ -6,7 +6,7 @@ function(X, alg="evolutionary", sp=1, na.action=na.fail, control=ojaMedianContro
         stop("'X' must be numeric")
    if (is.data.frame(X)) X <- as.matrix(X)
    
-   alg <- match.arg(alg,c("evolutionary", "exact", "exact_bounded", "grid"))
+   alg <- match.arg(alg,c("evolutionary", "exact", "bounded_exact", "grid"))
    
    rows <- dim(X)[1]
    cols <- dim(X)[2]
@@ -59,7 +59,7 @@ function(X, alg="evolutionary", sp=1, na.action=na.fail, control=ojaMedianContro
     res<-.C("r_oja", rows, cols, X, vec = outvec, y, as.integer(action), as.double(control$maxlines), as.double(param2), as.integer(param3), as.integer(param4), as.integer(debug),1)
     RES <- res$vec
   }  
-  else if (alg=="exact_bounded"){
+  else if (alg=="bounded_exact"){
     action <- 6
     param2 <- control$volume
     param3 <- control$boundedExact

@@ -89,7 +89,7 @@ X <- as.matrix(biochem[,1:2])
 ojaMedian(X)
 ojaMedian(X, alg = "grid")
 ex <-ojaMedian(X, alg = "exact")
-exb<-ojaMedian(X, alg = "exact_bounded")
+exb<-ojaMedian(X, alg = "bounded_exact")
 
 ojaMedianFn(X, ex)
 ojaMedianFn(X, exb)
