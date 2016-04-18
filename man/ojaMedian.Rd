@@ -22,7 +22,7 @@ ojaMedianExB(X, control = ojaMedianControl(...), ...)
 \arguments{
   \item{X}{numeric data.frame or matrix.}
   \item{alg}{character string denoting the algorithm to be used for computing the Oja median. Options are
-                \code{"exact"}, \code{"exact_bounded"}, \code{"evolutionary"} and \code{"grid"}. Default is \cr 		\code{"evolutionary"}. See Details.}
+                \code{"exact"}, \code{"bounded_exact"}, \code{"evolutionary"} and \code{"grid"}. Default is \cr 		\code{"evolutionary"}. See Details.}
   \item{sp}{number of runs to average over.}
   \item{na.action}{a function which indicates what should happen when the data
           contain 'NA's. Default is to fail. } 

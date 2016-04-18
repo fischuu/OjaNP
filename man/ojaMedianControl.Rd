@@ -33,9 +33,9 @@ ojaMedianControl(sigmaInit = 0, sigmaAda = 20, adaFactor = 0.5,
   \item{S2}{(for the \code{evo} and \code{grid} algorithms): Passed on to \code{\link[ICS]{ics}} to compute the invariant coordinate system. Default is \code{\link[ICS]{cov4}}.}
   \item{S1args}{(for the \code{evo} and \code{grid} algorithms): Optional arguments for \code{S1} passed on to \code{\link[ICS]{ics}} to compute the invariant coordinate system.}
   \item{S2args}{(for the \code{evo} and \code{grid} algorithms): Optional arguments for \code{S2} passed on to \code{\link[ICS]{ics}} to compute the invariant coordinate system.}
-  \item{volume}{(for the \code{exact_bounded} algorithm):  is the desired size of the bounded region, which is selected as a part of the original volume. Here the volume is calculated as the volume of a minimal multivariate circumscribed rectangle with edges parallel to the coordinate axes.
+  \item{volume}{(for the \code{bounded_exact} algorithm):  is the desired size of the bounded region, which is selected as a part of the original volume. Here the volume is calculated as the volume of a minimal multivariate circumscribed rectangle with edges parallel to the coordinate axes.
 }
-  \item{boundedExact}{(for the \code{exact_bounded} algorithm):  setting this parameter to \code{FALSE} stops the algorithm after the bounded region is found, and its center is reported as an approximation of the median.
+  \item{boundedExact}{(for the \code{bounded_exact} algorithm):  setting this parameter to \code{FALSE} stops the algorithm after the bounded region is found, and its center is reported as an approximation of the median.
 }
 }
 
