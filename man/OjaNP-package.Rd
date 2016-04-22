@@ -21,7 +21,7 @@ The package implements several algorithms to compute the Oja median as well as t
 \author{
 Daniel Fischer, Karl Mosler, Jyrki \enc{M?tt?nen}{Mottonen}, Klaus Nordhausen, Oleksii Pokotylo,  Daniel Vogel.
 
-Maintainer: Klaus Nordhausen <klaus.nordhausen@utu.fi>
+Maintainer: Daniel Fischer <daniel.fischer@luke.fi>
 
 }
 

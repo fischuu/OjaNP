@@ -37,6 +37,8 @@ is automatically determined based on the dimension of the problem. The function 
 that is, for sufficiently small data matrices \code{X} the sampling fraction \code{p} is set to 1. 
 Subsampling is applied to hyperplanes, not data points. A sample is drawn once, all Oja ranks are then computed based on this sample. 
 For further details on subsampling see function \code{\link{ojaRank}}. Subsampling is useful. Even for very small \code{p} useable results can be expected, see e.g.\ Example 2.
+
+Claudia \enc{KÃ¶llmann}{Kollmann}} is acknowledged for bug-fixing this function.
 }
 
 
@@ -50,7 +52,7 @@ For further details on subsampling see function \code{\link{ojaRank}}. Subsampli
 \cite{Ollila, E., Croux, C., Oja, H. (2004), Influence function and asymptotic effiency of the affine equivariant rank covariance matrix, \emph{Statistica Sinica}, \bold{14}, 297--316. }
 }
 
-\author{Daniel Vogel and Claudia \enc{Köllmann}{Kollmann}}
+\author{Daniel Vogel}
 
 \seealso{ 
 \code{\link{ojaRank}}, \code{\link{ojaSCM}} 

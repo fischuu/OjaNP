@@ -80,6 +80,8 @@ it is automatically determined based on \eqn{n} and \eqn{k} to yield a sensible 
 a hyperplane sample is drawn once, all Oja signs are then computed based on this sample.
 
 Finally, subsampling is feasible. Even for very small \code{p} useable results can be expected, see e.g.\ the examples for the function \code{\link{ojaSCM}}.
+
+Claudia \enc{KÃ¶llmann}{Kollmann}} is acknowledged for bug-fixing this function.
 }
 
 
@@ -93,7 +95,7 @@ Either a numeric vector, the Oja sign of \code{x}, or
 }
 
 
-\author{Daniel Vogel, Jyrki \enc{Möttönen}{Mottonen} and Claudia \enc{Köllmann}{Kollmann}}
+\author{Daniel Vogel, Jyrki \enc{MÃ¶ttÃ¶nen}{Mottonen}}
 
 
 

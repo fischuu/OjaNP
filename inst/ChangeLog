@@ -1,7 +1,8 @@
 LOG of the CHANGES in the package OjaNP
 
 Version 0.9-9:
-* New exact algorithm implemented by Oleksii Pokotylo and Karl Mosler added
+* Second implementation of an exact algorithm by Oleksii Pokotylo and Karl Mosler added
+* Maintainer change from Klaus Nordhausen to Daniel Fischer
 
 Version 0.9-8:
 * Fixed Valgrind warnings

@@ -74,7 +74,7 @@ Either a numeric vector, the Oja signed rank of \code{x}, or
 a matrix of the same dimensions as \code{X} containing the Oja signed ranks of \code{X} as rows.
 }
 \references{
-\cite{Hettmansperger, T. P.,\ \enc{Möttönen}{Mottonen}, J.\ and Oja, H.\ (1997), 
+\cite{Hettmansperger, T. P.,\ \enc{M?tt?nen}{Mottonen}, J.\ and Oja, H.\ (1997), 
   Affine invariant multivariate one-sample signed-rank tests, \emph{J.\
     Amer.\ Statist.\ Assoc.}, 
   \bold{92}, 1591--1600.}
@@ -84,7 +84,7 @@ a matrix of the same dimensions as \code{X} containing the Oja signed ranks of \
   \emph{Scand.\ J.\ Statist.}, \bold{26}, 319--343.}
 }
 
-\author{Jyrki \enc{Möttönen}{Mottonen}}
+\author{Jyrki \enc{MÃ¶ttÃ¶nen}{Mottonen}}
 
 
 

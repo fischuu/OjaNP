@@ -62,6 +62,7 @@ between accuracy and computing time, that is, for sufficiently small data matric
 not data points. A sample is drawn once, all Oja signs are then computed based on this sample. For further details on subsampling see function \code{\link{ojaSign}}. 
 Subsampling is useful. Even for very small \code{p} useable results can be expected, see e.g.\ Example 2.
   
+Claudia \enc{KÃ¶llmann}{Kollmann}} is acknowledged for bug-fixing this function.
 }
 \value{
   a symmetric matrix with \code{ncol(X)} columns and rows.
@@ -74,7 +75,7 @@ Subsampling is useful. Even for very small \code{p} useable results can be expec
 \cite{Ollila, E., Oja, H., Croux, C. (2003), The affine equivariant sign covariance matrix: Asymptotic behavior and efficiencies, \emph{J. Multivariate Analysis}, \bold{87}, 328--355.}
 }
 
-\author{Daniel Vogel and Claudia \enc{Köllmann}{Kollmann}}
+\author{Daniel Vogel}
 
 \seealso{ 
 \code{\link{ojaSign}}, 

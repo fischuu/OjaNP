@@ -50,6 +50,8 @@ If \eqn{p < 1} is passed to the function, the computation is based on a random s
 all Oja ranks are then computed based on this sample.
 
 Finally, subsampling is feasible. Even for very small \code{p} useable results can be expected, see e.g.\ the examples for the function \code{\link{ojaRCM}}.
+
+Claudia \enc{KÃ¶llmann}{Kollmann}} is acknowledged for bug-fixing this function.
 }
 
 \value{
@@ -57,7 +59,7 @@ either a numeric vector, the Oja rank of \code{x}, or
 a matrix of the same dimensions as \code{X} containing the Oja ranks of \code{X} as rows.
 }
 
-\author{Daniel Vogel, Jyrki \enc{Möttönen}{Mottonen} and Claudia \enc{Köllmann}{Kollmann}}
+\author{Daniel Vogel, Jyrki \enc{MÃ¶ttÃ¶nen}{Mottonen}
 
 \references{ 
 \cite{Oja, H.\ (1999), Affine invariant multivariate sign and rank tests and corresponding estimates: A review, 
