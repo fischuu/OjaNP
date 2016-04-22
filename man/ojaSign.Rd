@@ -81,7 +81,7 @@ a hyperplane sample is drawn once, all Oja signs are then computed based on this
 
 Finally, subsampling is feasible. Even for very small \code{p} useable results can be expected, see e.g.\ the examples for the function \code{\link{ojaSCM}}.
 
-Claudia \enc{Köllmann}{Kollmann}} is acknowledged for bug-fixing this function.
+Claudia \enc{Köllmann}{Kollmann} is acknowledged for bug-fixing this function.
 }
 
 

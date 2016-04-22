@@ -38,7 +38,7 @@ that is, for sufficiently small data matrices \code{X} the sampling fraction \co
 Subsampling is applied to hyperplanes, not data points. A sample is drawn once, all Oja ranks are then computed based on this sample. 
 For further details on subsampling see function \code{\link{ojaRank}}. Subsampling is useful. Even for very small \code{p} useable results can be expected, see e.g.\ Example 2.
 
-Claudia \enc{Köllmann}{Kollmann}} is acknowledged for bug-fixing this function.
+Claudia \enc{Köllmann}{Kollmann} is acknowledged for bug-fixing this function.
 }
 
 

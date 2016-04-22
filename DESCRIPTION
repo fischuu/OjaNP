@@ -1,15 +1,13 @@
 Package: OjaNP
 Type: Package
-Title: Multivariate Methods Based on the Oja Median and Related
-        Concepts
+Title: Multivariate Methods Based on the Oja Median and Related Concepts
 Version: 0.9-9
 Date: 2016-04-18
 Author: Daniel Fischer, Karl Mosler, Jyrki \enc{Möttönen}{Mottonen}, Klaus Nordhausen, Oleksii Pokotylo, Daniel Vogel
 Maintainer: Daniel Fischer <daniel.fischer@luke.fi>
 Depends: R (>= 3.0), ICS, ICSNP
 LinkingTo: Rcpp
-Description: The package provides functions for the Oja median, Oja
-        signs and ranks and methods based upon them.
+Description: Functions to calculate the Oja median, Oja signs and ranks and methods based upon them.
 License: GPL (>= 2)
 Encoding: latin1
 LazyLoad: yes

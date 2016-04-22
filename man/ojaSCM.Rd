@@ -62,7 +62,7 @@ between accuracy and computing time, that is, for sufficiently small data matric
 not data points. A sample is drawn once, all Oja signs are then computed based on this sample. For further details on subsampling see function \code{\link{ojaSign}}. 
 Subsampling is useful. Even for very small \code{p} useable results can be expected, see e.g.\ Example 2.
   
-Claudia \enc{Köllmann}{Kollmann}} is acknowledged for bug-fixing this function.
+Claudia \enc{Köllmann}{Kollmann} is acknowledged for bug-fixing this function.
 }
 \value{
   a symmetric matrix with \code{ncol(X)} columns and rows.
