@@ -25,7 +25,7 @@ hyperplane(X)
   order of the data points within the matrix \code{X}.   
                                                   
  	If the \eqn{k} points do not uniquely define a \eqn{(k\!-\!1)}{(k-1)}-dimensional hyperplane 
- 	(i.e.\ they lie on a \eqn{(k\!-\!2)}{(k-2)}-dimensional hyperplane), a vector containing zeros is returned. 
+ 	(i.e. they lie on a \eqn{(k\!-\!2)}{(k-2)}-dimensional hyperplane), a vector containing zeros is returned. 
 }
 
 

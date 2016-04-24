@@ -2,7 +2,7 @@
 \alias{ojaSign}
 \title{ Oja Signs -- Affine Equivariant Multivariate Signs }
 \description{
-  The function computes the Oja sign of a point \code{x} w.r.t.\ a data set \code{X} or, if no
+  The function computes the Oja sign of a point \code{x} w.r.t. a data set \code{X} or, if no
   point \code{x} is given, the Oja signs of all points in \code{X}.
 }
 \usage{
@@ -50,7 +50,7 @@ If \code{p = NULL}, the value of \code{p} is determined based on the size of the
 
 
 \details{
-The function computes the Oja sign of the point \code{x} w.r.t.\ to the data set \code{X} or, if no \code{x} is specified, the Oja signs of all data points in \code{X} w.r.t.\ \code{X}.
+The function computes the Oja sign of the point \code{x} w.r.t. to the data set \code{X} or, if no \code{x} is specified, the Oja signs of all data points in \code{X} w.r.t. \code{X}.
 For a definition of \dfn{Oja sign} see reference below.
 
 The matrix \code{X} needs to have at least as many rows as columns in order to give sensible results. 
@@ -63,7 +63,7 @@ Oja signs (contrary to Oja ranks) require the computation of a center (\dfn{loca
 various ways to do this. One can explicitly pass a location as a numeric vector (which has to be of length \code{ncol(X)}), 
 or pass a function that computes a multivariate location. %Some care is needed when using this option.
 
-This function must accept data sets of the same type as \code{X} (i.e.\ row-wise) and return a numeric vector of length \code{ncol(X)}. 
+This function must accept data sets of the same type as \code{X} (i.e. row-wise) and return a numeric vector of length \code{ncol(X)}. 
 For example \code{center = colMeans} will do, whereas \code{center = mean} will not, since \code{mean(X)} computes the (univariate) mean of 
 all elements of the matrix \code{X}. Note that some location functions return a list also containing information on the data or the computation 
 rather than the numeric location estimate only. Via \code{...} arguments can be passed on to the location function, see example 2 below. 
@@ -79,7 +79,7 @@ it is automatically determined based on \eqn{n} and \eqn{k} to yield a sensible 
 (of one sign) \emph{usually} takes around 20 seconds (on a 1.66 GHz CPU and 1 GB RAM). If all Oja signs of \code{X} are requested, 
 a hyperplane sample is drawn once, all Oja signs are then computed based on this sample.
 
-Finally, subsampling is feasible. Even for very small \code{p} useable results can be expected, see e.g.\ the examples for the function \code{\link{ojaSCM}}.
+Finally, subsampling is feasible. Even for very small \code{p} useable results can be expected, see e.g. the examples for the function \code{\link{ojaSCM}}.
 
 Claudia \enc{Köllmann}{Kollmann} is acknowledged for bug-fixing this function.
 }
@@ -90,8 +90,8 @@ Either a numeric vector, the Oja sign of \code{x}, or
  a matrix of the same dimensions as \code{X} containing the Oja signs of \code{X} as rows.
 }
 \references{ 
-\cite{Oja, H.\ (1999), Affine invariant multivariate sign and rank tests and corresponding estimates: A review, 
-\emph{Scand.\ J.\ Statist.}, \bold{26}, 319--343.}
+\cite{Oja, H. (1999), Affine invariant multivariate sign and rank tests and corresponding estimates: A review, 
+\emph{Scand. J. Statist.}, \bold{26}, 319--343.}
 }
 
 

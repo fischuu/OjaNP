@@ -24,7 +24,7 @@ If \code{p = NULL}, the value of \code{p} is determined based on the size of the
 
 \details{
 The function computes the Oja rank covariance matrix of the data set \code{X}, that is (since Oja ranks are centered) the covariance matrix of the Oja ranks of the data points 
-in \code{X}, taken w.r.t.\ the data set \code{X}. 
+in \code{X}, taken w.r.t. the data set \code{X}. 
 
 For a definition of the \dfn{Oja rank covariance matrix} and its properties see references below.
 The matrix \code{X} needs to have at least as many rows as columns in order to give sensible results. 
@@ -36,9 +36,8 @@ If \code{p} is not specified (which defaults to \code{p = NULL}), it
 is automatically determined based on the dimension of the problem. The function tries to realize a reasonable compromise between accuracy and computing time, 
 that is, for sufficiently small data matrices \code{X} the sampling fraction \code{p} is set to 1. 
 Subsampling is applied to hyperplanes, not data points. A sample is drawn once, all Oja ranks are then computed based on this sample. 
-For further details on subsampling see function \code{\link{ojaRank}}. Subsampling is useful. Even for very small \code{p} useable results can be expected, see e.g.\ Example 2.
+For further details on subsampling see function \code{\link{ojaRank}}. Subsampling is useful. Even for very small \code{p} useable results can be expected, see e.g. Example 2.
 
-Claudia \enc{Köllmann}{Kollmann} is acknowledged for bug-fixing this function.
 }
 
 

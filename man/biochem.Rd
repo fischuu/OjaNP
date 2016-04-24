@@ -20,7 +20,7 @@ The treatment group received a drug and the control group a placebo.
 \source{Table 1 in Brown and Hettmansperger (1987).}
 
 \references{
-\cite{Brown, B.\ M.\ and Hettmansperger, T.\ P.\ (1987). Affine invariant rank methods in the
+\cite{Brown, B. M. and Hettmansperger, T. P. (1987). Affine invariant rank methods in the
 bivariate location model. \emph{Journal of the Royal Statistical Society, Series B}, \bold{49}, 301--310.}
 }
 

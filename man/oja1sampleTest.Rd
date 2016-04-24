@@ -42,7 +42,7 @@ oja1sampleTest(X, mu = NULL, scores = "sign", p = 1,
 \references{
 \cite{Hettmansperger, T. P., Nyblom, J. and Oja, H. (1994), Affine invariant multivariate one-sample sign test, \emph{Journal of the Royal Statistical Society}, Series B, \bold{56}, 221--234.}
 
-\cite{Hettmansperger, T. P., \enc{Möttönen}{Mottonen}, J. and Oja, H. (1997), Multivariate affine invariant one-sample signed-rank tests, \emph{Journal of the American Statistical Society}, \bold{92}, 1591--1600.} 
+\cite{Hettmansperger, T. P., \enc{MÃ¶ttÃ¶nen}{Mottonen}, J. and Oja, H. (1997), Multivariate affine invariant one-sample signed-rank tests, \emph{Journal of the American Statistical Society}, \bold{92}, 1591--1600.} 
 }
 \author{
 Klaus Nordhausen

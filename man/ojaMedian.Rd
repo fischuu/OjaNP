@@ -55,7 +55,7 @@ ojaMedianExB(X, control = ojaMedianControl(...), ...)
   
   The exact algorithm and the grid algorithm are also described in Ronkainen et al. (2002). The bounded search algorithm is described in Mosler and Pokotylo (2015).
 
-  A lot of calculation time in the \code{ojaMedian} function might be spend for checking the input and for transforming it. So if you do time-critical calculations, e.g.\ with loops, you might want to take the variants \code{ojaMedianEx},  \code{ojaMedianExB}, 
+  A lot of calculation time in the \code{ojaMedian} function might be spend for checking the input and for transforming it. So if you do time-critical calculations, e.g. with loops, you might want to take the variants \code{ojaMedianEx},  \code{ojaMedianExB}, 
   \code{ojaMedianEvo} or \code{ojaMedianGrid}. Please use this only if you know what you are doing, because there are no checks, just the \code{.Call} to the algorithm itself.
   
   If the dimension of your data is too big or if there are too many observations, it is possible that the exact algorithm will crash R. On a common PC with a 32-bit operating system the following
@@ -71,11 +71,11 @@ ojaMedianExB(X, control = ojaMedianControl(...), ...)
 \references{
 \cite{Oja, H. (1983), Descriptive statistics for multivariate distributions, \emph{Statistics and Probability Letters}, \bold{1}, 327--332. }
 
-\cite{Ronkainen, T., Oja, H.\ and Orponen, P.\ (2002), Computation of the multivariate Oja median, in Dutter R.,  Filzmoser P.,Gather U.\ and Rousseeuw, P.\ J.: \emph{Developments in Robust Statistics}, Heidelberg: Springer, 344--359. }
+\cite{Ronkainen, T., Oja, H. and Orponen, P. (2002), Computation of the multivariate Oja median, in Dutter R.,  Filzmoser P.,Gather U. and Rousseeuw, P. J.: \emph{Developments in Robust Statistics}, Heidelberg: Springer, 344--359. }
 
-\cite{Fischer, D.\ (2008), \emph{Diplomarbeit}, Statistische Eigenschaften des Oja-Medians mit einer algorithmischen Betrachtung, Dortmund: Technische \enc{Universit?t}{Universitat} Dortmund. In German.}
+\cite{Fischer, D. (2008), \emph{Diplomarbeit}, Statistische Eigenschaften des Oja-Medians mit einer algorithmischen Betrachtung, Dortmund: Technische \enc{Universität}{Universitat} Dortmund. In German.}
 
-\cite{Mosler, K. and Pokotylo, O.\ (2015), "Computation of the Oja Median by Bounded Search." \emph{Modern Nonparametric, Robust and Multivariate Methods.} Springer International Publishing, 185--203. }
+\cite{Mosler, K. and Pokotylo, O. (2015), "Computation of the Oja Median by Bounded Search." \emph{Modern Nonparametric, Robust and Multivariate Methods.} Springer International Publishing, 185--203. }
 }
 
 \author{Ported to R by Daniel Fischer. Original C++-code by Thorsten Bernholt, Robin Nunkesser and Tommi Ronkainen.

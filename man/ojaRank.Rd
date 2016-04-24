@@ -2,7 +2,7 @@
 \alias{ojaRank}
 \title{ Oja Ranks -- Affine Equivariant Multivariate Ranks }
 \description{
-  The function computes the Oja rank of a point \code{x} w.r.t.\ a data set \code{X} or, if no
+  The function computes the Oja rank of a point \code{x} w.r.t. a data set \code{X} or, if no
   point \code{x} is given, the Oja ranks of all points in \code{X}.
 }
 \usage{
@@ -30,7 +30,7 @@ If \code{p = NULL}, the value of \code{p} is determined based on the size of the
 
 \details{
 The function computes the Oja rank of the point \code{x} w.r.t.\ the data set \code{X} or, if no \code{x} is specified, the Oja ranks of all data points in 
-\code{X} w.r.t.\ \code{X}. For a definition of \dfn{Oja rank} see reference below. 
+\code{X} w.r.t. \code{X}. For a definition of \dfn{Oja rank} see reference below. 
 
 The matrix \code{X} needs to have at least as many rows as columns in order to give sensible results. 
 The vector \code{x} has to be of length \code{ncol(X)}. 
@@ -49,7 +49,7 @@ If \eqn{p < 1} is passed to the function, the computation is based on a random s
 (of one rank) \emph{usually} takes around 20 seconds (on a 1.66 GHz CPU and 1 GB RAM). If all Oja ranks of \code{X} are requested, a hyperplane sample is drawn once, 
 all Oja ranks are then computed based on this sample.
 
-Finally, subsampling is feasible. Even for very small \code{p} useable results can be expected, see e.g.\ the examples for the function \code{\link{ojaRCM}}.
+Finally, subsampling is feasible. Even for very small \code{p} useable results can be expected, see e.g. the examples for the function \code{\link{ojaRCM}}.
 
 Claudia \enc{Köllmann}{Kollmann} is acknowledged for bug-fixing this function.
 }
@@ -62,8 +62,8 @@ a matrix of the same dimensions as \code{X} containing the Oja ranks of \code{X}
 \author{Daniel Vogel, Jyrki \enc{Möttönen}{Mottonen}}
 
 \references{ 
-\cite{Oja, H.\ (1999), Affine invariant multivariate sign and rank tests and corresponding estimates: A review, 
-\emph{Scand.\ J.\ Statist.}, \bold{26}, 319--343.}
+\cite{Oja, H. (1999), Affine invariant multivariate sign and rank tests and corresponding estimates: A review, 
+\emph{Scand. J. Statist.}, \bold{26}, 319--343.}
 }
 
 

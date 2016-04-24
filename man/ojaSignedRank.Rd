@@ -2,7 +2,7 @@
 \alias{ojaSignedRank}
 \title{Oja Signed Ranks -- Affine Equivariant Multivariate Signed Ranks }
 \description{
-  The function computes the Oja signed rank of a point \code{x} w.r.t.\
+  The function computes the Oja signed rank of a point \code{x} w.r.t.
   a data set \code{X} or, if no
   point \code{x} is given, the Oja signed ranks of all points in \code{X}.
 }
@@ -35,9 +35,9 @@ ojaSignedRank(X, x = NULL, p = NULL, silent = FALSE,
 
 
 \details{
-The function computes the Oja signed rank of the point \code{x} w.r.t.\
+The function computes the Oja signed rank of the point \code{x} w.r.t.
 the data set \code{X} or, if no \code{x} is specified, the Oja signed
-ranks of all data points in \code{X} w.r.t.\ \code{X}. For a definition
+ranks of all data points in \code{X} w.r.t. \code{X}. For a definition
 of \dfn{Oja signed rank} see Hettmansperger et al. (1997) formula (9).
 
 The matrix \code{X} needs to have at least as many rows as columns in
@@ -66,7 +66,7 @@ sample fraction \code{p} is set to 1 (no subsampling). If all Oja signed ranks o
 drawn once and all Oja signed ranks are then computed based on this sample.
 
 Finally, subsampling is feasible. Even for very small \code{p} useable
-results can be expected, see e.g.\ the examples for the function \code{\link{ojaRCM}}.
+results can be expected, see e.g. the examples for the function \code{\link{ojaRCM}}.
 }
 
 \value{
@@ -74,14 +74,14 @@ Either a numeric vector, the Oja signed rank of \code{x}, or
 a matrix of the same dimensions as \code{X} containing the Oja signed ranks of \code{X} as rows.
 }
 \references{
-\cite{Hettmansperger, T. P.,\ \enc{M?tt?nen}{Mottonen}, J.\ and Oja, H.\ (1997), 
+\cite{Hettmansperger, T. P.,\ \enc{Möttönen}{Mottonen}, J. and Oja, H. (1997), 
   Affine invariant multivariate one-sample signed-rank tests, \emph{J.\
-    Amer.\ Statist.\ Assoc.}, 
+    Amer. Statist. Assoc.}, 
   \bold{92}, 1591--1600.}
 
-\cite{Oja, H.\ (1999), Affine invariant multivariate sign and rank tests
+\cite{Oja, H. (1999), Affine invariant multivariate sign and rank tests
   and corresponding estimates: A review, 
-  \emph{Scand.\ J.\ Statist.}, \bold{26}, 319--343.}
+  \emph{Scand. J. Statist.}, \bold{26}, 319--343.}
 }
 
 \author{Jyrki \enc{Möttönen}{Mottonen}}

@@ -19,7 +19,7 @@ a numeric value containing the ciriterion evaluated at \code{x} for the data \co
 \references{
 \cite{Oja, H. (1983), Descriptive statistics for multivariate distributions, \emph{Statistics and Probability Letters}, \bold{1}, 327--332. }
 
-\cite{Ronkainen, T., Oja, H.\ and Orponen, P.\ (2002), Computation of the multivariate Oja median, in Dutter R.,  Filzmoser P.,Gather U.\ and Rousseeuw, P.\ J.: \emph{Developments in Robust Statistics}, Heidelberg: Springer, 344--359. }
+\cite{Ronkainen, T., Oja, H. and Orponen, P. (2002), Computation of the multivariate Oja median, in Dutter R.,  Filzmoser P.,Gather U. and Rousseeuw, P. J.: \emph{Developments in Robust Statistics}, Heidelberg: Springer, 344--359. }
 }
 
 \author{ported to R by Daniel Fischer. Original C++ code by Tommi Ronkainen.}
