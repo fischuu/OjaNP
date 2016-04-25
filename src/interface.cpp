@@ -55,8 +55,8 @@ extern "C"
 	//XXXvoid r_oja(long* rows,long* cols,double* data,double* vec_out,double* mat_out,long* func,double* param1, double* param2, long* param3, long* param4,long* dbg, long* rSeed)
 	void r_oja(long* rows,long* cols,double* data,double* vec_out,double* mat_out,long* func,double* param1, double* param2, long* param3, long* param4,long* dbg)
 	{
-		int dim=int(*cols);
-		int size=int(*rows);
+		int dim=(int)*cols;
+		int size=(int)*rows;
 		double* d=data;
 		OjaPoint v_output;
 
@@ -68,12 +68,12 @@ extern "C"
 			for(int j=0; j<size; j++)
 				D[j][i]=*d++;
 
-		debug=(*dbg != 0);
+		debug=(int)(*dbg != 0);
 		verbose=(*dbg != 0);
 		
 		set_random_seed();
 		
-		switch(*func)
+		switch((int)*func)
 		{
 		  case 1:
 		  {
