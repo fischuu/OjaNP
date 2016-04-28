@@ -67,7 +67,7 @@ int random(int min,int max)
     //return random()%(max-min+1)+min;		// auskommentiert bei Sebastian Ruthe weil nicht mit Windows kompatibel 
     
 #ifdef _MSC_VER
-	return ((int)(rand() * 32767) % (max - min + 1) + min);  //AP - debug under VC++
+	return (rand() % (max - min + 1) + min);  //AP - debug under VC++
 #else
 	return ((int)(unif_rand()*32767)%(max-min+1)+min);
 #endif
