@@ -97,8 +97,8 @@ public:
             size_t rowlen = col * sizeof(T);
 
             for (size_t i=0; i < row; i++)
-            {
-                Val[i] = new T [col];
+            { 
+	        Val[i] = new T [col];
                 if (v) memcpy( Val[i], v[i], rowlen);
             }
         }

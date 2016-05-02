@@ -38,10 +38,10 @@
 
 /*
 defined in "global.h"
-//#define LOG(a) {if(debug)cout << a << endl;}
+#define LOG(a) {if(debug)cout << a << endl;}
 //#define TRACE(a) {if(trace)cerr << a << endl;}
 //#define LOGIF(a,b) {if(debug && (a))cout << b << endl;}
-#define LOG(a) {}
+//#define LOG(a) {}
 #define TRACE(a) {}
 #define LOGIF(a,b) {}
 #define FLOG(a) {}//{if(0)fout << a << endl;}
@@ -294,7 +294,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 
 
 	/* 1.*/
-	LOG("Generating hyperplanes");
+//XXX	LOG("Generating hyperplanes");
 	generate_hyperplanes();
 
 	clock_t hp_generated = clock();
@@ -306,7 +306,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 	IndexIdentifier Lid,Tid;
 
   step3:
-	LOG("Choosing initial line");
+//XXX	LOG("Choosing initial line");
     L.get_random_through(center_index());
 	Lid.get(L.index());
 	if(Lid.dim() != 1)
@@ -319,7 +319,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 	OjaPoint T(*this),hatT(*this);
 	double hatD,D;
 
-	LOG(counter << " Minimizing " << Lid);  counter++;
+//XXX	LOG(counter << " Minimizing " << Lid);  counter++;
 #ifdef GRAPHICS
 	set_line(L.line());
 	wait_if_pause();
@@ -329,7 +329,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 	add_orbit(hatT.location());
 #endif
 	Tid.get(hatT.index());
-	LOG("  Minimum " << Tid << " (object function " << hatD << ")");
+//XXX	LOG("  Minimum " << Tid << " (object function " << hatD << ")");
 
 	/* 9. */
 	set<IndexIdentifier> calL;
@@ -351,13 +351,13 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 
 	if(nL > max_searchlines)
 	{
-		LOG("Too many line possibilities (" << nL << ") at " << Tid);
+//XXX		LOG("Too many line possibilities (" << nL << ") at " << Tid);
 		fail_count++;
 		goto step3;
 	}
 
 	/* 15. */
-	LOG("Generating " << nL << " lines");
+//XXX	LOG("Generating " << nL << " lines");
 	
 	set<IndexIdentifier> calLprime;
 	Tid.put_sup_objects(calLprime,1);
@@ -394,10 +394,10 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 		}
 	}
 	Lid.get(L.index());
-	LOG("  Best direction " << Lid << " (projection " << proj_max << ")");
+//XXX	LOG("  Best direction " << Lid << " (projection " << proj_max << ")");
 
 	/* 19. */
-	LOG(counter << " Minimizing " << Lid);  counter++;
+//XXX	LOG(counter << " Minimizing " << Lid);  counter++;
 #ifdef GRAPHICS
 	set_line(L.line());
 	wait_if_pause();
@@ -407,7 +407,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 	add_orbit(hatT.location());
 #endif
 	Tid.get(hatT.index());
-	LOG("  Minimum " << Tid << " (object function " << hatD << ")");
+//XXX	LOG("  Minimum " << Tid << " (object function " << hatD << ")");
 
 	/* 20. */
 	calLprime.erase(Lid);
@@ -427,7 +427,7 @@ OjaPoint OjaData::medianFollowIntersectionLines()
 		cout << fail_count << " failures" << endl;
 	}*/
 	
-	LOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
+//XXX	LOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
 	FLOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
 
 	clock_t end = clock();
@@ -909,7 +909,7 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 		oldS=S;
 		oldn=n;
 		
-		LOG("Lattice have " << L.points() << " points, sampling " << set_size << " planes. " << cntr);
+//		LOG("Lattice have " << L.points() << " points, sampling " << set_size << " planes. " << cntr);
 	  
 		// Poimitaan satunnaisia hypertasoja 'SAMPLE_SIZE3' kappaletta
 		for(int sample=set_size; sample; sample--)
@@ -993,7 +993,7 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 				if(L.box_average_edge_length() < epsilon)
 					break;
 				
-				LOG("Lattice grid size " << L.box_average_edge_length());
+//XXX				LOG("Lattice grid size " << L.box_average_edge_length());
 				L.focus_on(bestI,bestI,true);
 				lattice_number++;
 				lattice_points+=L.points();
@@ -1089,9 +1089,9 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 // 		p.set_location((-1.0) * A.inv() * b);
 // 	}
 	
-	if(verbose)
-	{
-		Point unfixed=L.point(bestI);
+//XXX	if(verbose)
+//XXX	{
+//XXX		Point unfixed=L.point(bestI);
 		/*
 		cout << "Total of " << n << " hyperplanes added to lattice" << endl;
 		cout << "Average size of lattice " << double(lattice_points)/(lattice_number+restores) << endl;
@@ -1104,7 +1104,7 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 		if(!exact_median.is_nil())
 			cout << "Improvement: " << ((unfixed  - exact_median).length()) - ((p.location() - exact_median).length()) << endl;
 		*/
-	}
+//XXX	}
 	
 	if(cov)
 		*cov=S;

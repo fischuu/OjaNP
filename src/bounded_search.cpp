@@ -489,7 +489,8 @@ return pp;
 	for (int i = 0; i < bounds_crossing_indexes.size(); i++)
 	{
 		LOG(bounds_crossing_indexes[i]);
-	}/**/
+	}
+	*/
 #pragma endregion
 
 #pragma region Add bounds to hyperplanes
@@ -616,7 +617,7 @@ step3:
 		hi[2].insert(46);
 		hi[2].insert(47);
 
-		L.get(IndexSet(dim(), size(), hi)); /**/ // use this block to test any particular line
+		L.get(IndexSet(dim(), size(), hi)); */ // use this block to test any particular line
 
 #pragma endregion
 
