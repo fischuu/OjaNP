@@ -428,6 +428,13 @@ if (true)	// Approach A. reducing procedure
 
 
 		Point g = -oja_rank(bmid);
+		if (g.length() < 1e-15) {
+			LOG("The median is found : " << bmid);
+			FLOG("The median is found : " << bmid);
+			OjaPoint pp; pp.set_location(bmid);
+			return pp;
+		}
+
 		Hyperplane b1;
 		b1.get(bmid, g);	// hp through point with gradient
 		addBound(b1, false, bounds, crossing_points, used_crossing_points, bounds_crossing_indexes, dim());
@@ -588,6 +595,7 @@ step3:
 #endif
 	}
 	errif(L.is_nil(), "Could not find an initial line")
+	errif(h.is_nil(), "Could not find an initial line")
 
 	/*	vector<set<int> > hi(3);
 		hi[0].clear();

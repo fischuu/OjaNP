@@ -891,13 +891,25 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 #endif
 	
 	int oldn,n=0; // Hypertasojen kokonaism��r�
-	for(;;)
+	for(int cntr = 1, cntr2 = 1;; cntr++)
 	{	
+		if (cntr == 1000)
+		{
+			LOG("Too many iterations.");
+			set_random_seed();
+			cntr = 1;
+
+			cntr2++;
+			if (cntr2 > 5) {
+				LOG("Too many iterations. Interrupting.");
+				break;
+			}
+		}
 		oldL=L;
 		oldS=S;
 		oldn=n;
 		
-		LOG("Lattice have " << L.points() << " points, sampling " << set_size << " planes");
+		LOG("Lattice have " << L.points() << " points, sampling " << set_size << " planes. " << cntr);
 	  
 		// Poimitaan satunnaisia hypertasoja 'SAMPLE_SIZE3' kappaletta
 		for(int sample=set_size; sample; sample--)
