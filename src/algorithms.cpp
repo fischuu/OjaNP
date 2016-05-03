@@ -891,19 +891,12 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 #endif
 	
 	int oldn,n=0; // Hypertasojen kokonaism��r�
-	for(int cntr = 1, cntr2 = 1;; cntr++)
+	for(int cntr = 1;; cntr++)
 	{	
-		if (cntr == 1000)
+		if (cntr == 5000)
 		{
-			LOG("Too many iterations.");
-			set_random_seed();
-			cntr = 1;
-
-			cntr2++;
-			if (cntr2 > 5) {
 				LOG("Too many iterations. Interrupting.");
 				break;
-			}
 		}
 		oldL=L;
 		oldS=S;
@@ -993,6 +986,8 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 				if(L.box_average_edge_length() < epsilon)
 					break;
 				
+				cntr = 1;
+
 				LOG("Lattice grid size " << L.box_average_edge_length());
 				L.focus_on(bestI,bestI,true);
 				lattice_number++;

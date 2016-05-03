@@ -16,7 +16,7 @@ function(X, alg="evolutionary", sp=1, na.action=na.fail, control=ojaMedianContro
    storage.mode(X) <- "double"
    storage.mode(outvec) <- "double"
 
-  if(alg != "exact") SEED <- sample(1:5000, sp*10)
+  if(alg != "exact") SEED <- sample(1:5000, sp)
 
   if (alg=="evolutionary"){
     
