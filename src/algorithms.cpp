@@ -891,20 +891,8 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 #endif
 	
 	int oldn,n=0; // Hypertasojen kokonaism��r�
-	for(int cntr = 1, cntr2 = 1;; cntr++)
-	{	
-		if (cntr == 1000)
-		{
-			LOG("Too many iterations.");
-			set_random_seed();
-			cntr = 1;
-
-			cntr2++;
-			if (cntr2 > 5) {
-				LOG("Too many iterations. Interrupting.");
-				break;
-			}
-		}
+	for(int cntr = 1, cntrmax = 5000;; cntr++)
+	{
 		oldL=L;
 		oldS=S;
 		oldn=n;
@@ -974,7 +962,7 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 		}
 #endif
 
-		if(L.points() <= 1)
+		if(L.points() <= 1 || cntr == cntrmax)  // if there is one point or the iterations limit is reached
 		{
  			if(L.points()==0)
  			{
@@ -989,11 +977,19 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 					set_size=(set_size >= 2 ? set_size/2 : 1);
  			}
  			else
-			{				
+			{		
 				if(L.box_average_edge_length() < epsilon)
 					break;
-				
-//XXX				LOG("Lattice grid size " << L.box_average_edge_length());
+
+				if (cntr == cntrmax)
+				{
+					LOG("Too many iterations. Generating a new grid around the best point.");
+					cntrmax = 100;
+				}
+				cntr = 1;
+
+				LOG("Lattice grid size " << L.box_average_edge_length());
+
 				L.focus_on(bestI,bestI,true);
 				lattice_number++;
 				lattice_points+=L.points();
