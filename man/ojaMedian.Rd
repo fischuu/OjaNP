@@ -87,7 +87,7 @@ Bounded search algorithm by Oleksii Pokotylo.
 data(biochem)
 X <- as.matrix(biochem[,1:2])
 ojaMedian(X)
-ojaMedian(X, alg = "grid")
+ojaMedian(X, alg = "evo")
 ex <-ojaMedian(X, alg = "exact")
 exb<-ojaMedian(X, alg = "bounded_exact")
 

@@ -197,7 +197,7 @@ OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 #ifdef _MSC_VER 
 #ifdef DEEPDEBUG
 	//  used to test if the objective function equals the real value in DotSet::min
-	LOG("Initializing Reference Data for tesing");
+//	LOG("Initializing Reference Data for tesing");
 	OjaData::S = *this;
 	for (int i = 0; i < dim(); i++)
 	for (int j = 0; j < size(); j++)
@@ -217,7 +217,7 @@ OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 	clock_t begin = clock();
 
 	/* 1.*/
-	LOG("Generating hyperplanes");
+//	LOG("Generating hyperplanes");
 	generate_hyperplanes();
 
 	clock_t hp_generated = clock();
@@ -259,7 +259,7 @@ OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 if (false)	// Approach B go along the gradients
 {
 #pragma region go along the gradients (any start point)
-	LOG("Building gradients");
+//	LOG("Building gradients");
 	//Going along the gradients as long as they are getting smaller
 	Point p = average();	// starting point
 	double d = DOUBLE_XMAX;
@@ -274,7 +274,7 @@ if (false)	// Approach B go along the gradients
 		if (d1 == 0){
 			OjaPoint T(this);
 			T.set_location(p);
-			LOG("Zero gradient found in point " << p);
+//			LOG("Zero gradient found in point " << p);
 			return T;
 		}
 
@@ -289,7 +289,7 @@ if (false)	// Approach B go along the gradients
 #pragma endregion
 
 #pragma region get bounds		
-		LOG("Building bounds");
+//		LOG("Building bounds");
 		Hyperplane b1;
 		for (int i = grads.size() - 2; i >= 0; i--){	// here: add ADD found gradients as bounds. other variants are possible
 			Point g = -(grads[i] - grads[i + 1]);
@@ -297,7 +297,7 @@ if (false)	// Approach B go along the gradients
 			b1.get(grads[i], g);	// hp through point with gradient
 			b1.isBound = true;
 
-			LOG("Gradient from " << grads[i]);
+//			LOG("Gradient from " << grads[i]);
 			addBound(b1, false, bounds, crossing_points, used_crossing_points, bounds_crossing_indexes, dim());
 		}
 	}
@@ -341,13 +341,13 @@ if (false) //Approach D build bounds at once, reduce length
 		b1.get(p, g);	// hp through point with gradient
 		b1.isBound = true;
 
-		LOG("Gradient from " << p);
+		//		LOG("Gradient from " << p);
 		addBound(b1, false, bounds, crossing_points, used_crossing_points, bounds_crossing_indexes, dim());
 
 		bounded_min_max(crossing_points, used_crossing_points, bmin, bmax, bmid, dim());
 		volume = getVolume(bmin, bmax);
 
-		LOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
+//		LOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
 		FLOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
 		k++;
 
@@ -393,13 +393,13 @@ if (false) //Approach D build bounds at half of gradient
 		b1.isBound = true;
 		p = 0.5*(p + p1);
 
-		LOG("Gradient from " << p);
+		//		LOG("Gradient from " << p);
 		addBound(b1, false, bounds, crossing_points, used_crossing_points, bounds_crossing_indexes, dim());
 
 		bounded_min_max(crossing_points, used_crossing_points, bmin, bmax, bmid, dim());
 		volume = getVolume(bmin, bmax);
 
-		LOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
+//		LOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
 		FLOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
 		k++;
 	} while (volume / initvol > this->volume /*desired volume*/ && k < 100/*max cuts*/);
@@ -423,13 +423,13 @@ if (true)	// Approach A. reducing procedure
 		bounded_min_max(crossing_points, used_crossing_points, bmin, bmax, bmid, dim());
 		volume = getVolume(bmin, bmax);
 
-		LOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
+//		LOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
 		FLOG(k << " Min " << bmin << "; Max " << bmax << "; size: " << bmax - bmin << " (" << volume / initvol << "); bounds: " << bounds.size());
 
 
 		Point g = -oja_rank(bmid);
 		if (g.length() < 1e-15) {
-			LOG("The median is found : " << bmid);
+//			LOG("The median is found : " << bmid);
 			FLOG("The median is found : " << bmid);
 			OjaPoint pp; pp.set_location(bmid);
 			return pp;
@@ -442,7 +442,7 @@ if (true)	// Approach A. reducing procedure
 		k++;
 	} while (volume / initvol > this->volume /*desired volume*/ && k < 100/*max cuts*/);
 
-	LOG("Set coord bounds");
+	//	LOG("Set coord bounds");
 	clearBounds(crossing_points, used_crossing_points, bounds_crossing_indexes);
 	bounded_min_max(crossing_points, used_crossing_points, bmin, bmax, bmid, dim());
 	set_bounded_min_max(bmin, bmax);
@@ -469,7 +469,7 @@ return pp;
 
 #pragma region Remove hyperplanes lying out of bounds, add bounds and crossing points to search
 	/* 1.2 Remove hyperplanes lying out of bounds */
-	LOG("Remove hyperplanes lying out of bounds");
+	//	LOG("Remove hyperplanes lying out of bounds");
 	for (int i = 0; i < planes; i++){
 		int s = (*plane)[i].side(crossing_points[0]);
 		if (s == 0)
@@ -483,7 +483,7 @@ return pp;
 			}
 		}
 	}
-	LOG("Hyperplanes left: " << includedPlanes.size() << " out of  " << planes << " (" << round(100.0*includedPlanes.size() / planes, 0.01) << "%)");
+	//	LOG("Hyperplanes left: " << includedPlanes.size() << " out of  " << planes << " (" << round(100.0*includedPlanes.size() / planes, 0.01) << "%)");
 	FLOG("Hyperplanes left: " << includedPlanes.size() << " out of  " << planes << " (" << round(100.0*includedPlanes.size() / planes, 0.01) << "%)");
 	/*
 	for (int i = 0; i < bounds_crossing_indexes.size(); i++)
@@ -550,7 +550,7 @@ return pp;
 #pragma endregion
 
 	clock_t bb_generated = clock();
-	LOG("bounds generated " << double(bb_generated - begin) / CLOCKS_PER_SEC);
+	//	LOG("bounds generated " << double(bb_generated - begin) / CLOCKS_PER_SEC);
 	FLOG("bounds generated " << double(bb_generated - begin) / CLOCKS_PER_SEC);
 
 	/* 2. */
@@ -559,7 +559,7 @@ return pp;
 	
 #pragma region Choosing initial line
 
-	LOG("Choosing initial line");
+	//	LOG("Choosing initial line");
 
 
 	/* 8. */
@@ -584,7 +584,7 @@ step3:
 
 		errif(L.is_nil(), "Could not find an initial line")
 		Lid.get(L.index());
-		LOG(counter++ << " Trying " << Lid);
+//		LOG(counter++ << " Trying " << Lid);
 
 		DotSet tds(&L, h, h0);	// initialize the common coefficients
 		if (h.is_nil())
@@ -621,14 +621,14 @@ step3:
 
 #pragma endregion
 
-	LOG((counter = 1) << " Minimizing " << Lid); counter++;
+	//	LOG((counter = 1) << " Minimizing " << Lid); counter++;
 	hatT = L.min(hatD);
 
 #ifdef GRAPHICS
 	add_orbit(hatT.location());
 #endif
 	Tid.get(hatT.index());
-	LOG("  Minimum " << Tid << " (object function " << hatD << ")");
+	//	LOG("  Minimum " << Tid << " (object function " << hatD << ")");
 
 	/* 9. */
 	set<IndexIdentifier> calL;
@@ -648,14 +648,14 @@ step10:
 
 	if (nL > max_searchlines)
 	{
-		LOG("Too many line possibilities (" << nL << ") at " << Tid);
+	  //	LOG("Too many line possibilities (" << nL << ") at " << Tid);
 		FLOG("Too many line possibilities (" << nL << ") at " << Tid);
 		fail_count++;
 		goto step3;
 	}
 
 	/* 15. */
-	LOG("Generating " << nL << " lines");
+	//	LOG("Generating " << nL << " lines");
 
 	set<IndexIdentifier> calLprime;
 	Tid.put_sup_objects(calLprime, 1);
@@ -670,7 +670,7 @@ step10:
 
 	for (i = calLprime.begin(); i != calLprime.end(); i++)
 	{
-		LOG("     "<<*i);
+	  //		LOG("     "<<*i);
 	}
 
 	while (calLprime.size())
@@ -702,17 +702,17 @@ step10:
 			}
 		}
 		Lid.get(L.index());
-		LOG("  Best direction " << Lid << " (projection " << proj_max << ")");
+		//		LOG("  Best direction " << Lid << " (projection " << proj_max << ")");
 
 		/* 19. */
-		LOG(counter << " Minimizing " << Lid); counter++;
+		//		LOG(counter << " Minimizing " << Lid); counter++;
 #ifdef GRAPHICS
 		set_line(L.line());
 		wait_if_pause();
 #endif
 		OjaPoint p = L.min(hatD);
 		if (p.is_nil()){
-			LOG("Line lies out of bounds");
+		  //			LOG("Line lies out of bounds");
 			calLprime.erase(Lid);
 			calL.insert(Lid);
 			continue;
@@ -722,7 +722,7 @@ step10:
 		add_orbit(hatT.location());
 #endif
 		Tid.get(hatT.index());
-		LOG("  Minimum " << Tid << " (object function " << hatD << ")");
+		//	LOG("  Minimum " << Tid << " (object function " << hatD << ")");
 
 		/* 20. */
 		calLprime.erase(Lid);
@@ -742,7 +742,7 @@ step10:
 	cout << fail_count << " failures" << endl;
 	}*/
 
-	LOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
+	//	LOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
 	FLOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
 
 #ifdef TO_FILE
