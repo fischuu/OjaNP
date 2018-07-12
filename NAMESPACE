@@ -10,4 +10,4 @@ export(ojaMedian, ojaMedianFn, hyperplane, ojaRCM, ojaSCM, ojaSign, ojaMedianCon
 S3method(ojaCsampleTest, default)
 S3method(ojaCsampleTest, formula)
 
-useDynLib(OjaNP)
+useDynLib(OjaNP, .registration = TRUE)

@@ -2,6 +2,7 @@ LOG of the CHANGES in the package OjaNP
 
 Version 0.9-10:
 * removed the 'register' keyword from the C++ code
+* Fixed a c++ registration warning/note
 
 Version 0.9-9:
 * Second implementation of an exact algorithm by Oleksii Pokotylo and Karl Mosler added
