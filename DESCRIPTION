@@ -1,8 +1,8 @@
 Package: OjaNP
 Type: Package
 Title: Multivariate Methods Based on the Oja Median and Related Concepts
-Version: 0.9-9
-Date: 2016-04-24
+Version: 0.9-10
+Date: 2018-07-12
 Encoding: UTF-8
 Author: Daniel Fischer, Karl Mosler, Jyrki Möttönen, Klaus Nordhausen, Oleksii Pokotylo, Daniel Vogel
 Maintainer: Daniel Fischer <daniel.fischer@luke.fi>
