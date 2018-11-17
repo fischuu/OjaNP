@@ -39,19 +39,19 @@ public:
    size_t ColNo () const { return _m->Col; }
 
     
-   T& operator () (size_t row, size_t col) throw (matrix_error) ;
+   T& operator () (size_t row, size_t col) ;//throw (matrix_error) ;
 
     
    matrix<T>  operator + () throw ()  { return *this; }
    matrix<T>  operator - () throw () ;
 
     
-   matrix<T> & operator += (const matrix<T> & m) throw (matrix_error) ;
-   matrix<T> & operator -= (const matrix<T> & m) throw (matrix_error) ;
-   matrix<T> & operator *= (const matrix<T> & m) throw (matrix_error) ;
+   matrix<T> & operator += (const matrix<T> & m) ;//throw (matrix_error) ;
+   matrix<T> & operator -= (const matrix<T> & m) ;//throw (matrix_error) ;
+   matrix<T> & operator *= (const matrix<T> & m) ;//throw (matrix_error) ;
    matrix<T> & operator *= (const T& c) throw () ;
    matrix<T> & operator /= (const T& c) throw () ;
-   matrix<T> & operator ^= (const size_t& pow) throw (matrix_error) ;
+   matrix<T> & operator ^= (const size_t& pow) ;//throw (matrix_error) ;
 
     
    void Null (const size_t& row, const size_t& col) throw () ;
@@ -61,12 +61,12 @@ public:
    void SetSize (size_t row, size_t col) throw () ;
 
     
-   matrix<T>  Solve (const matrix<T> & v) const throw (matrix_error) ;
-   matrix<T>  Adj () const throw (matrix_error) ;
-   T Det () const throw (matrix_error) ;
-   T Det_destroyable() throw (matrix_error);
+   matrix<T>  Solve (const matrix<T> & v) const ;//throw (matrix_error) ;
+   matrix<T>  Adj () const ;//throw (matrix_error) ;
+   T Det () const ;//throw (matrix_error) ;
+   T Det_destroyable() ;//throw (matrix_error);
    T Norm () throw () ;
-   T Cofact (size_t row, size_t col) const throw (matrix_error) ;
+   T Cofact (size_t row, size_t col) const ;//throw (matrix_error) ;
    T Cond () throw () ;
 
     
@@ -205,7 +205,7 @@ matrix<T> ::SetSize (size_t row, size_t col) throw ()
 
  
 template <class T>  inline T&
-matrix<T> ::operator () (size_t row, size_t col) throw (matrix_error) 
+matrix<T> ::operator () (size_t row, size_t col) //throw (matrix_error) 
 {
    if (row >= _m->Row || col >= _m->Col)
       throw matrix_error(   "matrixT::operator(): Index out of range!" ); ;
@@ -266,7 +266,7 @@ operator != (const matrix<T> & m1, const matrix<T> & m2) throw ()
 
  
 template <class T>  inline matrix<T> &
-matrix<T> ::operator += (const matrix<T> & m) throw (matrix_error) 
+matrix<T> ::operator += (const matrix<T> & m) //throw (matrix_error) 
 {
    if (_m->Row != m._m->Row || _m->Col != m._m->Col)
       throw matrix_error(   "matrixT::operator+= : Inconsistent matrix sizes in addition!" ); ;
@@ -279,7 +279,7 @@ matrix<T> ::operator += (const matrix<T> & m) throw (matrix_error)
 
  
 template <class T>  inline matrix<T> &
-matrix<T> ::operator -= (const matrix<T> & m) throw (matrix_error) 
+matrix<T> ::operator -= (const matrix<T> & m) //throw (matrix_error) 
 {
    if (_m->Row != m._m->Row || _m->Col != m._m->Col)
       throw matrix_error(   "matrixT::operator-= : Inconsistent matrix sizes in subtraction!" ); ;
@@ -303,7 +303,7 @@ matrix<T> ::operator *= (const T& c) throw ()
 
  
 template <class T>  inline matrix<T> &
-matrix<T> ::operator *= (const matrix<T> & m) throw (matrix_error) 
+matrix<T> ::operator *= (const matrix<T> & m) //throw (matrix_error) 
 {
    if (_m->Col != m._m->Row)
       throw matrix_error(   "matrixT::operator*= : Inconsistent matrix sizes in multiplication!" ); ;
@@ -327,7 +327,7 @@ matrix<T> ::operator /= (const T& c) throw ()
 
  
 template <class T>  inline matrix<T> &
-matrix<T> ::operator ^= (const size_t& pow) throw (matrix_error) 
+matrix<T> ::operator ^= (const size_t& pow) //throw (matrix_error) 
 {
 	matrix<T>  temp(*this);
 
@@ -352,7 +352,7 @@ matrix<T> ::operator - () throw ()
 
  
 template <class T>  inline matrix<T> 
-operator + (const matrix<T> & m1, const matrix<T> & m2) throw (matrix_error) 
+operator + (const matrix<T> & m1, const matrix<T> & m2) //throw (matrix_error) 
 {
    if (m1._m->Row != m2._m->Row || m1._m->Col != m2._m->Col)
       throw matrix_error(   "matrixT::operator+: Inconsistent matrix size in addition!" ); ;
@@ -368,7 +368,7 @@ operator + (const matrix<T> & m1, const matrix<T> & m2) throw (matrix_error)
 
  
 template <class T>  inline matrix<T> 
-operator - (const matrix<T> & m1, const matrix<T> & m2) throw (matrix_error) 
+operator - (const matrix<T> & m1, const matrix<T> & m2) //throw (matrix_error) 
 {
    if (m1._m->Row != m2._m->Row || m1._m->Col != m2._m->Col)
      throw matrix_error(   "matrixT::operator-: Inconsistent matrix size in subtraction!" ); ;
@@ -405,7 +405,7 @@ operator * (const T& no, const matrix<T> & m) throw ()
 
  
 template <class T>  inline matrix<T> 
-operator * (const matrix<T> & m1, const matrix<T> & m2) throw (matrix_error) 
+operator * (const matrix<T> & m1, const matrix<T> & m2) //throw (matrix_error) 
 {
    if (m1._m->Col != m2._m->Row)
       throw matrix_error(   "matrixT::operator*: Inconsistent matrix size in multiplication!" ); ;
@@ -432,21 +432,21 @@ operator / (const matrix<T> & m, const T& no) throw ()
 
  
 template <class T>  inline matrix<T> 
-operator / (const T& no, const matrix<T> & m) throw (matrix_error) 
+operator / (const T& no, const matrix<T> & m) //throw (matrix_error) 
 {
     return (!m * no);
 }
 
  
 template <class T>  inline matrix<T> 
-operator / (const matrix<T> & m1, const matrix<T> & m2) throw (matrix_error) 
+operator / (const matrix<T> & m1, const matrix<T> & m2) //throw (matrix_error) 
 {
     return (m1 * !m2);
 }
 
  
 template <class T>  inline matrix<T> 
-operator ^ (const matrix<T> & m, const size_t& pow) throw (matrix_error) 
+operator ^ (const matrix<T> & m, const size_t& pow) //throw (matrix_error) 
 {
    matrix<T>  temp(m);
 
@@ -471,7 +471,7 @@ operator  ~ (const matrix<T> & m) throw ()
 
  
 template <class T>  inline matrix<T> 
-operator ! (matrix<T>  m) throw (matrix_error) 
+operator ! (matrix<T>  m) //throw (matrix_error) 
 {
    size_t i,j,k;
    T a1,a2,*rowptr;
@@ -518,7 +518,7 @@ operator ! (matrix<T>  m) throw (matrix_error)
 
  
 template <class T>  inline matrix<T> 
-matrix<T> ::Solve (const matrix<T> & v) const throw (matrix_error) 
+matrix<T> ::Solve (const matrix<T> & v) const //throw (matrix_error) 
 {
    size_t i,j,k;
    T a1;
@@ -649,7 +649,7 @@ matrix<T> ::pivot (size_t row)
 
  
 template <class T>  inline T
-matrix<T> ::Det () const throw (matrix_error) 
+matrix<T> ::Det () const //throw (matrix_error) 
 {
    size_t i,j,k;
    T piv,detVal = T(1);
@@ -682,7 +682,7 @@ matrix<T> ::Det () const throw (matrix_error)
 * Calculates det without making a temp matrix, destroying the source one. To be used if the given matrix is already a copy
 */
 template <class T>  inline T
-matrix<T> ::Det_destroyable() throw (matrix_error)
+matrix<T> ::Det_destroyable() //throw (matrix_error)
 {
 	size_t i, j, k;
 	T piv, detVal = T(1);
@@ -731,7 +731,7 @@ matrix<T> ::Cond () throw ()
 
  
 template <class T>  inline T
-matrix<T> ::Cofact (size_t row, size_t col) const throw (matrix_error) 
+matrix<T> ::Cofact (size_t row, size_t col) const //throw (matrix_error) 
 {
    size_t i,i1,j,j1;
 
@@ -762,11 +762,9 @@ matrix<T> ::Cofact (size_t row, size_t col) const throw (matrix_error)
 
    return cof;
 }
-
-
  
 template <class T>  inline matrix<T> 
-matrix<T> ::Adj () const throw (matrix_error) 
+matrix<T> ::Adj () const //throw (matrix_error) 
 {
    if (_m->Row != _m->Col)
       throw matrix_error(   "matrixT::Adj(): Adjoin of a non-square matrix." ); ;

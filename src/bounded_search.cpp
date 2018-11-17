@@ -72,7 +72,7 @@ void bounded_min_max(vector<Point>& crossing_points, set<int>& used_crossing_poi
 	bmid *= 1.0/used_crossing_points.size();
 }
 
-void addBound(Hyperplane& plane, bool initial, vector<Hyperplane>& bounds, vector<Point>& crossing_points, set<int>& used_crossing_points, vector<set<int> >& bounds_crossing_indexes, int dim){
+void addBound(Hyperplane& plane, bool initial, vector<Hyperplane>& bounds, vector<Point>& crossing_points, set<int>& used_crossing_points, vector<set<int> >& bounds_crossing_indexes, unsigned int dim){
 	HyperplaneSet hs(dim);
 	vector<Hyperplane> hv(dim);
 
