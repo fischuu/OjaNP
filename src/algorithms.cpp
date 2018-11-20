@@ -79,6 +79,7 @@ OjaPoint OjaData::median()
 	  case FOLLOW_INTERSECTION_LINES:
 		  return medianFollowIntersectionLines();
 	  case FOLLOW_INTERSECTION_LINES_BOUNDED:
+	    return medianFollowIntersectionLinesBounded();  // This is a test, if this return fixed the valgrind message on this line! Check with Oleksii if the return is correct!!! (DF)
 	  case FOLLOW_INTERSECTION_LINES_BOUNDED_APPROX:
 		  return medianFollowIntersectionLinesBounded();
 	  case BRUTE_FORCE:

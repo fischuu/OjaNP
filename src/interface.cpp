@@ -85,10 +85,8 @@ extern "C"
 
 		  case 6:		//AP method
 		  {
-			  if (bool(*param3))
-				D.set_median_method(FOLLOW_INTERSECTION_LINES_BOUNDED);
-			  else
-				D.set_median_method(FOLLOW_INTERSECTION_LINES_BOUNDED_APPROX);
+		    D.set_median_method(FOLLOW_INTERSECTION_LINES_BOUNDED_APPROX);  // This is a test, if this return fixed the valgrind message on this line! Check with Oleksii if the return is correct!!! (DF)
+			  if (int(*param3)==1)	D.set_median_method(FOLLOW_INTERSECTION_LINES_BOUNDED);
 			  D.set_max_searchlines(int(*param1));
 			  D.set_volume(double(*param2));
 			  v_output = D.median();
