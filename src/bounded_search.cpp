@@ -222,7 +222,7 @@ OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 
 	clock_t hp_generated = clock();
 
-	FLOG("hp generated " << double(hp_generated - begin) / CLOCKS_PER_SEC);
+	LOGTIME("hp generated " << double(hp_generated - begin) / CLOCKS_PER_SEC);
 
 	/* 1.1 Get bounds */
 
@@ -551,7 +551,7 @@ return pp;
 
 	clock_t bb_generated = clock();
 	//	LOG("bounds generated " << double(bb_generated - begin) / CLOCKS_PER_SEC);
-	FLOG("bounds generated " << double(bb_generated - begin) / CLOCKS_PER_SEC);
+	LOGTIME("bounds generated " << double(bb_generated - hp_generated) / CLOCKS_PER_SEC);
 
 	/* 2. */
 	OjaLine L(*this);
@@ -745,15 +745,15 @@ step10:
 	//	LOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
 	FLOG("! Minimum " << Tid << " (" << hatT.location() << ") (object function " << hatD << ")");
 
-#ifdef TO_FILE
+//#ifdef TO_FILE
 	clock_t end = clock();
-	double elapsed_secst = double(end - begin) / CLOCKS_PER_SEC;
-	double elapsed_secs = double(end - hp_generated) / CLOCKS_PER_SEC;
+	double elapsed_secst = double(end - hp_generated) / CLOCKS_PER_SEC;
+	double elapsed_secs = double(end - bb_generated) / CLOCKS_PER_SEC;
 
-	FLOG("counter: " << counter-1 << "\nTime total: " << elapsed_secst << "\nTime count: " << elapsed_secs);
+	LOGTIME("counter: " << counter-1 << "\nTime total: " << elapsed_secst << "\nTime count: " << elapsed_secs);
 
-	fout.close();
-#endif
+//	fout.close();
+//#endif
 
 	return T;
 }

@@ -7,7 +7,11 @@
 
 //using namespace std; //df
 
-extern bool debug;
+// bit flags
+// 0 - no debug
+// 1 - all
+// 2 - time
+extern int debug;
 extern bool trace;
 extern bool verbose;
 extern bool quiet;
@@ -18,13 +22,16 @@ extern bool adaptive;
 #define cout Rcpp::Rcout
 #endif
 
+
 #ifdef TO_FILE
 #define LOG(a) {}
-#define FLOG(a) {if(debug)fout << a << endl;}
+#define FLOG(a) {if(debug&1) fout << a << endl;}
 #else
-#define LOG(a) {if(debug) cout << a << endl;}
+#define LOG(a) {if(debug&1) cout << a << endl;}
 #define FLOG(a) {}
 #endif
+
+#define LOGTIME(a) {if (debug&2) cout << a << endl;}
 
 #define TRACE(a) {}//if(trace)cerr << a << endl;}
 #define LOGIF(a,b) {if(debug && (a)) cout << b << endl;}

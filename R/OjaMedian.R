@@ -8,6 +8,21 @@ function(X, alg="evolutionary", sp=1, na.action=na.fail, control=ojaMedianContro
    
    alg <- match.arg(alg,c("evolutionary", "exact", "bounded_exact", "grid"))
    
+   args = list(...)
+   
+   # undocumented parameter debug:
+   # 1 - basic logs
+   # 2 - time
+   # 1|2 = 3 - both
+   if (is.null(args$debug))
+     debug = 0
+   else if (args$debug == TRUE)
+     # all logs on
+     debug = bitwNot(as.integer(0))
+   else if (!is.numeric(args$debug))
+     debug = 0
+   else debug = args$debug
+   
    rows <- dim(X)[1]
    cols <- dim(X)[2]
    outvec <- c(1:cols)
@@ -54,8 +69,7 @@ function(X, alg="evolutionary", sp=1, na.action=na.fail, control=ojaMedianContro
   
   else if (alg=="exact"){
     action <- 1
-    param2 <- param3 <- param4 <- debug <- 0
- #   debug = 1
+    param2 <- param3 <- param4 <- 0
     res<-.C("r_oja", rows, cols, X, vec = outvec, y, as.integer(action), as.double(control$maxlines), as.double(param2), as.integer(param3), as.integer(param4), as.integer(debug),1)
     RES <- res$vec
   }  
@@ -63,8 +77,7 @@ function(X, alg="evolutionary", sp=1, na.action=na.fail, control=ojaMedianContro
     action <- 6
     param2 <- control$volume
     param3 <- control$boundedExact
-    param4 <- debug <- 0
-    #debug = 1
+    param4 <- 0
     res<-.C("r_oja", rows, cols, X, vec = outvec, y, as.integer(action), as.double(control$maxlines), as.double(param2), as.integer(param3), as.integer(param4), as.integer(debug),1)
     RES <- res$vec
   }

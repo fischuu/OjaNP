@@ -68,7 +68,7 @@ extern "C"
 			for(int j=0; j<size; j++)
 				D[j][i]=*d++;
 
-		debug=(int)(*dbg != 0);
+		debug=*dbg;
 		verbose=(*dbg != 0);
 		
 		set_random_seed();

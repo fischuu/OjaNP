@@ -24,7 +24,7 @@
 //using namespace std; //df
 
 /* Ei geneerinen osa parseria */
-bool debug=false;
+int debug=0;
 bool trace=false;
 bool verbose=false;
 bool quiet=false;
@@ -68,7 +68,7 @@ bool parse_arguments(int argc,char** argv)
 	{
 		/* Ei geneerinen osa parseria */
 		if(strcmp(argv[i],"-D")==0)
-			debug=true;
+			debug=1;
 		else if(strcmp(argv[i],"-t")==0)
 			trace=true;
 		else if(strcmp(argv[i],"-v")==0)

@@ -1,6 +1,7 @@
 LOG of the CHANGES in the package OjaNP
 
-
+Version 0.9-13:
+* Debug option for bounded search added
 
 Version 0.9-12:
 * Fixed some warnings for Cran (depraciated from the compiler)
