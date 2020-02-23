@@ -76,6 +76,9 @@ ojaMedianExB(X, control = ojaMedianControl(...), ...)
 \cite{Fischer, D. (2008), \emph{Diplomarbeit}, Statistische Eigenschaften des Oja-Medians mit einer algorithmischen Betrachtung, Dortmund: Technische \enc{Universität}{Universitat} Dortmund. In German.}
 
 \cite{Mosler, K. and Pokotylo, O. (2015), "Computation of the Oja Median by Bounded Search." \emph{Modern Nonparametric, Robust and Multivariate Methods.} Springer International Publishing, 185--203. }
+
+\cite{Fischer D, Mosler K, \enc{Möttönen}{Mottonen} J, Nordhausen K, Pokotylo O and Vogel D (2020). “Computing the Oja Median in R: The Package OjaNP.” \emph{Journal of Statistical Software}, \bold{92}(8), pp. 1-36. doi: 10.18637/jss.v092.i08 (URL:
+http://doi.org/10.18637/jss.v092.i08).}
 }
 
 \author{Ported to R by Daniel Fischer. Original C++-code by Thorsten Bernholt, Robin Nunkesser and Tommi Ronkainen.

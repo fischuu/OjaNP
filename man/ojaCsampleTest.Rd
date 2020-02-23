@@ -98,6 +98,9 @@ Note that no theoretical results are available when \dQuote{\code{p}} is not set
 \cite{Hettmansperger, T. P., \enc{Möttönen}{Mottonen}, J. and Oja, H. (1999), Multivariate affine invariant rank tests for several samples, \emph{Statistica Sinica}, \bold{8}, 785--800.} 
 
 \cite{Visuri, S., Ollila, E., Koivunen, V., \enc{Möttönen}{Mottonen}, J. and Oja, H. (2003), Affine equivariant multivariat rank methods, \emph{Journal of Statistical Planning and Inference}, \bold{114}, 161--185.} 
+
+\cite{Fischer D, Mosler K, \enc{Möttönen}{Mottonen} J, Nordhausen K, Pokotylo O and Vogel D (2020). “Computing the Oja Median in R: The Package OjaNP.” \emph{Journal of Statistical Software}, \bold{92}(8), pp. 1-36. doi: 10.18637/jss.v092.i08 (URL:
+http://doi.org/10.18637/jss.v092.i08).}
 }
 \author{
 Klaus Nordhausen

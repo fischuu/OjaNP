@@ -45,6 +45,9 @@ For further details on subsampling see function \code{\link{ojaRank}}. Subsampli
   a symmetric matrix with \code{ncol(X)} columns and rows.
 }
 \references{ 
+\cite{Fischer D, Mosler K, \enc{Möttönen}{Mottonen} J, Nordhausen K, Pokotylo O and Vogel D (2020). “Computing the Oja Median in R: The Package OjaNP.” \emph{Journal of Statistical Software}, \bold{92}(8), pp. 1-36. doi: 10.18637/jss.v092.i08 (URL:
+http://doi.org/10.18637/jss.v092.i08).}
+
 \cite{Visuri, S., Koivunen, V., Oja, H. (1999), Sign and rank covariance matrices, 
 \emph{J. Stat. Plann. Inference}, \bold{91}, 557--575.} 
 

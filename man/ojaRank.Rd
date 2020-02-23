@@ -62,6 +62,9 @@ a matrix of the same dimensions as \code{X} containing the Oja ranks of \code{X}
 \author{Daniel Vogel, Jyrki \enc{Möttönen}{Mottonen}}
 
 \references{ 
+\cite{Fischer D, Mosler K, \enc{Möttönen}{Mottonen} J, Nordhausen K, Pokotylo O and Vogel D (2020). “Computing the Oja Median in R: The Package OjaNP.” \emph{Journal of Statistical Software}, \bold{92}(8), pp. 1-36. doi: 10.18637/jss.v092.i08 (URL:
+http://doi.org/10.18637/jss.v092.i08).}
+
 \cite{Oja, H. (1999), Affine invariant multivariate sign and rank tests and corresponding estimates: A review, 
 \emph{Scand. J. Statist.}, \bold{26}, 319--343.}
 }

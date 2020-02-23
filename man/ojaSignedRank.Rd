@@ -74,6 +74,9 @@ Either a numeric vector, the Oja signed rank of \code{x}, or
 a matrix of the same dimensions as \code{X} containing the Oja signed ranks of \code{X} as rows.
 }
 \references{
+\cite{Fischer D, Mosler K, \enc{Möttönen}{Mottonen} J, Nordhausen K, Pokotylo O and Vogel D (2020). “Computing the Oja Median in R: The Package OjaNP.” \emph{Journal of Statistical Software}, \bold{92}(8), pp. 1-36. doi: 10.18637/jss.v092.i08 (URL:
+http://doi.org/10.18637/jss.v092.i08).}
+
 \cite{Hettmansperger, T. P.,\ \enc{Möttönen}{Mottonen}, J. and Oja, H. (1997), 
   Affine invariant multivariate one-sample signed-rank tests, \emph{J.\
     Amer. Statist. Assoc.}, 

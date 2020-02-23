@@ -43,6 +43,9 @@ oja1sampleTest(X, mu = NULL, scores = "sign", p = 1,
 \cite{Hettmansperger, T. P., Nyblom, J. and Oja, H. (1994), Affine invariant multivariate one-sample sign test, \emph{Journal of the Royal Statistical Society}, Series B, \bold{56}, 221--234.}
 
 \cite{Hettmansperger, T. P., \enc{Möttönen}{Mottonen}, J. and Oja, H. (1997), Multivariate affine invariant one-sample signed-rank tests, \emph{Journal of the American Statistical Society}, \bold{92}, 1591--1600.} 
+
+\cite{Fischer D, Mosler K, \enc{Möttönen}{Mottonen} J, Nordhausen K, Pokotylo O and Vogel D (2020). “Computing the Oja Median in R: The Package OjaNP.” \emph{Journal of Statistical Software}, \bold{92}(8), pp. 1-36. doi: 10.18637/jss.v092.i08 (URL:
+http://doi.org/10.18637/jss.v092.i08).}
 }
 \author{
 Klaus Nordhausen
