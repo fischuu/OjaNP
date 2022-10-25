@@ -1315,7 +1315,7 @@ struct node
 		{index=i; gradient=p; goodness=g;}
 };
 
-class chi2_limit_check : public unary_function<node,bool>
+class chi2_limit_check
 {
 	double max;
 	
