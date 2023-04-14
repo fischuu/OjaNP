@@ -1317,13 +1317,15 @@ struct node
 
 class chi2_limit_check
 {
-	double max;
-	
-public:
-	chi2_limit_check(double m)
-		{max=m;}
-	bool operator()(const node& n) const
-		{return n.goodness > max;}
+  public:
+    chi2_limit_check(double m) : max(m) {}
+    bool operator()(const node& n) const
+    {
+      return n.goodness > max;
+    }
+  private:
+    double max;
+    std::function<bool(const node&)> func = [this](const node& n) { return this->operator()(n); };
 };
 
 bool operator<(const node& n1,const node& n2)
