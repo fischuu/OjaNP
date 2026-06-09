@@ -1,2 +1,13 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.git$
+^\.gitignore$
+^\.github$
+\.directory$
+^src/.*\.o$
+^src/.*\.dll$
+^inst/ChangeLog~$
+^v92i08\.pdf$
+^v92i08_extracted\.txt$
+^OjaNP\.Rcheck$
+^.*\.tar\.gz$
