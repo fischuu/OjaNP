@@ -7,3 +7,6 @@ src/*.dll
 .github/
 OjaNP.Rcheck/
 OjaNP_*.tar.gz
+src/symbols.rds
+*.Rcheck/
+..Rcheck/

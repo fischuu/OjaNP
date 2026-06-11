@@ -11,3 +11,6 @@
 ^v92i08_extracted\.txt$
 ^OjaNP\.Rcheck$
 ^.*\.tar\.gz$
+^.*Rcheck$
+^\.\.Rcheck$
+^check_output\.log$
