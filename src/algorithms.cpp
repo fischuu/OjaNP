@@ -277,6 +277,7 @@ OjaPoint OjaData::medianBruteForceSearch()
 OjaPoint OjaData::medianFollowIntersectionLines()
 {
 	int counter = 1;
+	int fail_count = 0;
 	//if(verbose)
 	//	cout << "Max. search lines " << max_searchlines << endl;
 
@@ -1136,6 +1137,7 @@ OjaPoint OjaData::medianBootstrap(const list<Hyperplane>& store,const list<Index
 #endif
 	
 	int n=0;
+	int sets=set_size; // Arvottavan setin koko
 	int totalw=0; // Painojen kumulatiivinen summa
 	int wg;
 	
@@ -1204,15 +1206,10 @@ OjaPoint OjaData::medianBootstrap(const list<Hyperplane>& store,const list<Index
 		// M��ritell��n seuraavan kierroksen otoskoko
 		sets *= SAMPLE_SIZE_MULTIPLIER;
 
-	}
- 			else
-			{				
-				if(L.box_diameter() < epsilon)
-					break;
-				
-				L.focus_on(bestI,bestI,true);
-			}
-		}
+		if(L.box_diameter() < epsilon)
+			break;
+		
+		L.focus_on(bestI,bestI,true);
 		
 	} // for(;;)
 
