@@ -1119,7 +1119,6 @@ OjaPoint OjaData::medianBootstrap(const list<Hyperplane>& store,const list<Index
 	// Alustetaan muuttujat
 	FreeLattice L(min(),max(),INITIAL_STEP); // Hila
 	FreeLattice oldL(L); // Varakopio luottamusalueen palauttamiseen
-	int oldN=0; // Varakopio hypertasojen m��r�st�
 	Index I(dim(),size()); // Apumuuttuja indeksin samplaukseen
 	list<Hyperplane>::const_iterator hyp=store.begin(); // Listan seuraavaksi k�ytett�v� hypertaso
 	list<Index>::const_iterator idx=idxstore.begin(); // Listan seuraavaksi k�ytett�v� indeksi
@@ -1144,7 +1143,6 @@ OjaPoint OjaData::medianBootstrap(const list<Hyperplane>& store,const list<Index
 	for(;;)
 	{	
 		oldL=L;
-		oldN=n;
 		
 		// Poimitaan satunnaisia hypertasoja 'SAMPLE_SIZE3' kappaletta
 		for(int sample=set_size; sample; sample--)
