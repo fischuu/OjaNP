@@ -18,7 +18,6 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <R.h>
 #include "interface.h"
 #include "oja_geometry.h"
 #include "matrix_wrapper.h"

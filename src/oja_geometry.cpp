@@ -362,8 +362,6 @@ void DotSet::get_common_coefs(Point& h, double& h0)
 	h = Point(dim());
 	h0 = 0;
 
-	double t;
-	pair<double, int> d0;
 	Line L;
 	Point x;
 
@@ -424,7 +422,6 @@ void DotSet::generate_dots_bounded()
 	IndexSet lind = line->index();
 
 	set<int> includedPlanes = data->get_includedPlanes();
-	int hyperplanes_count = data->hyperplanes();
 	set<int> valid_bounds = find_valid_bounds(includedPlanes, data, x);
 	if (valid_bounds.size() == 0) return;
 
@@ -629,7 +626,6 @@ OjaPoint DotSet::min(double& ojafn)
 #endif 
 #endif
 	
-	bool f1 = false, f2 = false;
 	// K�yd��n l�pi kaikki leikkauspisteet vaihtaen hypertasoja
 	// summasta oikean merkkisiksi.
 	for (int i = start; i<n; i++)

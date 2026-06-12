@@ -28,7 +28,6 @@
 #include "global.h"
 #include "matrix_wrapper.h"
 #include "stl_tools.h"
-#include <R.h>
 
 #include "bitset"
 
@@ -188,7 +187,6 @@ OjaData OjaData::S = OjaData();
 
 OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 {
-	int fail_count = 0;
 	int counter = 1;
 
 	//if(verbose)
@@ -418,7 +416,6 @@ if (true)	// Approach A. reducing procedure
 		this->volume = 0.0001;
 
 	int k = 1;
-	unsigned count = INT_MAX;
 	do{
 		bounded_min_max(crossing_points, used_crossing_points, bmin, bmax, bmid, dim());
 		volume = getVolume(bmin, bmax);
@@ -542,7 +539,7 @@ return pp;
 
 		add_bound_points(planes_points);
 		// Add bounds to the planes list, add indexes
-		for (int i = 0, p = planes; i < bounds.size(); i++)
+		for (int i = 0; i < bounds.size(); i++)
 			add_bound(bounds[i], bci[i]);
 	
 	}
