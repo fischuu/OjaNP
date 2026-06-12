@@ -55,6 +55,13 @@ jobs:
 
     steps:
       - uses: r-hub/actions/checkout@v1
+      - name: Install FlexiBLAS (needed by mvtnorm)
+        run: |
+          if command -v apt-get &> /dev/null; then
+            apt-get update && apt-get install -y libflexiblas3
+          elif command -v dnf &> /dev/null; then
+            dnf install -y flexiblas
+          fi
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
