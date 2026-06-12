@@ -24,8 +24,8 @@
 #include "data.h"
 #include "simplex.h"
 #include "line.h"
-#include "oja_geometry.h"
 #include "global.h"
+#include "oja_geometry.h"
 #include "matrix_wrapper.h"
 #include "stl_tools.h"
 #ifdef GRAPHICS

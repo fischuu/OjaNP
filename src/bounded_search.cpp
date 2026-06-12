@@ -24,8 +24,8 @@
 #include "data.h"
 #include "simplex.h"
 #include "line.h"
-#include "oja_geometry.h"
 #include "global.h"
+#include "oja_geometry.h"
 #include "matrix_wrapper.h"
 #include "stl_tools.h"
 
@@ -187,6 +187,7 @@ OjaData OjaData::S = OjaData();
 
 OjaPoint OjaData::medianFollowIntersectionLinesBounded()	//AP
 {
+	int fail_count = 0;
 	int counter = 1;
 
 	//if(verbose)

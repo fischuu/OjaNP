@@ -19,9 +19,9 @@
  */
 
 #include "interface.h"
+#include "global.h"
 #include "oja_geometry.h"
 #include "matrix_wrapper.h"
-#include "global.h"
 #include "random.h"
 
 
