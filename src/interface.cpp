@@ -94,9 +94,7 @@ extern "C"
 		  }
 			  
 		  case 2:
-		  {      //XXX if (*rSeed!=0){ srand(*rSeed);}
-		  	  //GetRNGstate();
-		  	  
+		  {
 			  D.set_median_method(LATTICE_APPROX3);
 			  D.set_lattice_measure(LM_DIAMETER);
 			  D.set_epsilon(*param1);
@@ -117,6 +115,7 @@ extern "C"
 			  vec_out[0]=D.oja(x);
 			  for(int i=1; i<dim; i++)
 				  vec_out[i]=0.0;
+			  PutRNGstate();
 			  return;
 		  }
 
@@ -140,11 +139,12 @@ extern "C"
 		  }
 
 		  default:
-			//  cerr << "oja: unsupported function " << *func << endl;
+			  PutRNGstate();
 			  return;
 		}
 
 		for(int i=0; i<dim; i++)
 			vec_out[i]=v_output.location()[i];
+		PutRNGstate();
 	}
 }
