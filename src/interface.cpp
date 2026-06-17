@@ -19,7 +19,7 @@
  */
 
 #include "interface.h"
-#include "global.h"
+#include "global.h"         /* NOTE (fixes_j): must precede oja_geometry.h for Rcout macro */
 #include "oja_geometry.h"
 #include "matrix_wrapper.h"
 #include "random.h"
@@ -52,6 +52,8 @@ extern "C"
 	//  dbg - if non-zero, show debugging information
    
 	//XXXvoid r_oja(int* rows,int* cols,double* data,double* vec_out,double* mat_out,int* func,double* param1, double* param2, int* param3, int* param4,int* dbg, int* rSeed)
+	// NOTE (fixes_j): Changed all long* parameters to int* for cross-platform
+	// compatibility. R .C() passes 4-byte ints; Unix C long is 8 bytes.
 	// change: switched from using long type to int, could cause errors in unix, as input was 4 byte and long is 8 byte in unix
 	void r_oja(int* rows,int* cols,double* data,double* vec_out,double* mat_out,int* func,double* param1, double* param2, int* param3, int* param4,int* dbg)
 	{
@@ -138,13 +140,13 @@ extern "C"
 			  break;
 		  }
 
-		  default:
-			  PutRNGstate();
+		default:
+			  PutRNGstate();  /* NOTE (fixes_j): ensure RNG state returned to R */
 			  return;
 		}
 
 		for(int i=0; i<dim; i++)
 			vec_out[i]=v_output.location()[i];
-		PutRNGstate();
+		PutRNGstate();  /* NOTE (fixes_j): return RNG state after normal exit */
 	}
 }

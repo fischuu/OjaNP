@@ -461,8 +461,10 @@ extern "C" {
 		classgets(answer,className);
 		namesgets(answer,names);
 
+// NOTE (fixes_j): isFrame() was removed from R 4.6.0+ headers.
+// Replaced all isFrame() calls with inherits(data, "data.frame").
 // Patch: isFrame() removed from R 4.6.0+ headers; replaced with inherits() below.
-// --------Ab R-2.4.0 wird EnsureString nicht mehr unterst�tzt (daf�r funktioniert jetzt isFrame)---------	  
+  
 
 	 	PROTECT(dataClass=getAttrib(data,R_ClassSymbol));
 

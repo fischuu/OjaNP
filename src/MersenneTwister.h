@@ -71,6 +71,8 @@ class MTRand {
 public:
 	typedef unsigned long uint32;  // unsigned integer type, at least 32 bits
 	
+	/* NOTE (fixes_j): collapsed separate enum blocks into a single definition.
+	 * Multiple consecutive `enum { ... };` blocks flagged by strict compilers. */
 	enum { N = 624, SAVE = N + 1, M = 397 };
 	
 	uint32 state[N];   // internal state

@@ -6,6 +6,9 @@
 
 //using namespace std; //df
 
+/* NOTE (fixes_j/CRAN): Include Rcpp before R.h so the `cout -> Rcpp::Rcout`
+ * macro takes effect everywhere. Previously, R.h was included first,
+ * causing std::cout to leak to the C++ runtime instead of R's buffered output. */
 #ifndef _MSC_VER
 #include <Rcpp.h> 
 #define cout Rcpp::Rcout

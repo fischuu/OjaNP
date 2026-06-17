@@ -14,7 +14,7 @@ using namespace std;
 struct NodeData
 {
 	Point gradient;
-	double goodness = 0.0;
+	double goodness = 0.0;  /* NOTE (fixes_j/valgrind): explicit init silences uninitialized-read warnings */
 };
 
 class Lattice

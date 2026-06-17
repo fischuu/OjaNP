@@ -52,11 +52,15 @@ _random_number_initializer::_random_number_initializer()
 
 void set_random_seed()
 {
+	/* NOTE (fixes_j / CRAN): Replaced platform-specific srand/rand with
+	 * R's GetRNGstate() / unif_rand() for consistent cross-platform RNG. */
 	GetRNGstate();
 }
 
 int random(int min,int max)
 {
+	/* NOTE (fixes_j): uses unif_rand() uniformly instead of
+	 * platform-conditional rand() / unif_rand() */
 	errif(max < min,"random: illegal bounds " << min << " and " << max);
 	return ((int)(unif_rand()*32767) % (max - min + 1) + min);
 }

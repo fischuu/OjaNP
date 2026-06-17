@@ -3,6 +3,12 @@
 #include <stdlib.h>
 #include <R.h>
 
+/* NOTE (fixes_j / CRAN compliance):
+ * - Replaced Calloc/Free macros with R_Calloc/R_Free (R-allocated memory)
+ * - Added explicit C23-compliant function prototypes (removed outdated extern decls)
+ *   Previously used `extern double det(); void dp(), nextp();` style,
+ *   which is implicit int in old C — flagged by modern compilers.
+ */
 /* Function Prototypes inline with C23 */
 double det(double a[], int n);
 double sgn(double x);

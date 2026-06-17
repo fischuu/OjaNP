@@ -24,7 +24,7 @@
 #include "data.h"
 #include "simplex.h"
 #include "line.h"
-#include "global.h"
+#include "global.h"        /* NOTE (fixes_j): must come before oja_geometry.h for Rcout macro */
 #include "oja_geometry.h"
 #include "matrix_wrapper.h"
 #include "stl_tools.h"

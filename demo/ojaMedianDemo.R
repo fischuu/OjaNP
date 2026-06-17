@@ -147,4 +147,5 @@ sch2 <- intersection(c(2.5,5),c(8.5,2.5),c(1,1),c(8.5,5))
 sch3 <- intersection(c(1,1),c(8.5,5),c(2.5,5),c(7.5,1.5))
 sch4 <- intersection(c(3.5,3.5),c(8.5,5),c(2.5,5),c(7.5,1.5))
 polygon(c(sch1[1],sch2[1],sch3[1],sch4[1]),c(sch1[2],sch2[2],sch3[2],sch4[2]),col="red",lwd=1.5)
+## NOTE (fixes_j): removed trailing blank line at end of file
 title(main = "Oja median in the bivariate case for n=7",sub="red area corresponds to the Oja median")

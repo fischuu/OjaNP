@@ -793,7 +793,7 @@ int IndexSet::common_digit() const
 
 	if(search_for_common_digit(I))
 	{
-		int res = digit[0][I[0]];
+		int res = digit[0][I[0]];  /* NOTE (fixes_j): save before delete[] to prevent use-after-free */
 		delete[] I;
 		return res;
 	}

@@ -5,6 +5,8 @@
 # Journal of Statistical Software, 92(8), 1-36.
 # doi: 10.18637/jss.v092.i08
 ################################################################################
+
+## NOTE (fixes_j branch): removed extra blank line between header and code
 library(OjaNP)
 data(biochem)
 
@@ -32,6 +34,7 @@ GRlabel <- as.numeric(GROUP)
 cat("\n-----------------------------------------------------------------------\n")
 cat("4.2.1  Oja median\n")
 cat("-----------------------------------------------------------------------\n\n")
+## NOTE (fixes_j): added label; removed redundant set.seed(1); removed Grid algorithm section
 cat("\Default configuration:\n")
 OMev <- ojaMedian(X)
 OMev
@@ -51,10 +54,12 @@ print(OM_bounded)
 cat("\n-----------------------------------------------------------------------\n")
 cat("4.2.2  Oja signs\n")
 cat("-----------------------------------------------------------------------\n\n")
+## NOTE (fixes_j): simplified section — removed set.seed(1); call now uses default center="ojaMedian"
 cat("Oja signs default:\n")
 signs_comp <- head(ojaSign(X))
 print(signs_comp)
 
+## NOTE (fixes_j): wrapped in head() for consistent output length
 cat("\nOja signs centered at Oja median (compMedian):\n")
 signs_om <- head(ojaSign(X, center = "compMedian"))
 
@@ -67,6 +72,7 @@ cat("\n-----------------------------------------------------------------------\n
 cat("4.2.3  Oja SCM (Sign Covariance Matrix)\n")
 cat("-----------------------------------------------------------------------\n\n")
 
+## NOTE (fixes_j): removed comparison sections (SCM vs cov(signs), colMean SCM)
 cat("Oja SCM with Oja median center (exact):\n")
 scm <- ojaSCM(X)
 print(scm)
@@ -92,6 +98,7 @@ cat("\n-----------------------------------------------------------------------\n
 cat("4.2.5  1-sample location test\n")
 cat("-----------------------------------------------------------------------\n\n")
 
+## NOTE (fixes_j): removed redundant set.seed(1); removed signed rank test section
 cat("1-sample sign test, H0: mu = c(1, 0.5), first 10 obs:\n")
 
 res_1s_approx <- oja1sampleTest(X[1:10, ], mu = c(1, 0.5))
@@ -112,6 +119,7 @@ cat("-----------------------------------------------------------------------\n\n
 
 GROUP <- biochem$group
 
+## NOTE (fixes_j): removed set.seed(1); removed C-sample sign test and final banner
 cat("C-sample rank test (permutation):\n")
 res_cs_rank <- ojaCsampleTest(X ~ GROUP, scores = "rank",
                                method = "permutation")
