@@ -54,7 +54,7 @@ print(OM_bounded)
 cat("\n-----------------------------------------------------------------------\n")
 cat("4.2.2  Oja signs\n")
 cat("-----------------------------------------------------------------------\n\n")
-## NOTE (fixes_j): simplified section — removed set.seed(1); call now uses default center="ojaMedian"
+## NOTE (fixes_j): simplified section removed set.seed(1); call now uses default center="ojaMedian"
 cat("Oja signs default:\n")
 signs_comp <- head(ojaSign(X))
 print(signs_comp)

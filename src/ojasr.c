@@ -7,7 +7,7 @@
  * - Replaced Calloc/Free macros with R_Calloc/R_Free (R-allocated memory)
  * - Added explicit C23-compliant function prototypes (removed outdated extern decls)
  *   Previously used `extern double det(); void dp(), nextp();` style,
- *   which is implicit int in old C — flagged by modern compilers.
+ *   which is implicit int in old C - flagged by modern compilers.
  */
 /* Function Prototypes inline with C23 */
 double det(double a[], int n);
@@ -21,7 +21,7 @@ void nextp(int n, int k, int p[], int *last);
 /******************************************************************/
 /******************************************************************/
 void ojacrnk(double *x, int *nrow, int *ncol, double *rn)     
-{  
+{ 
   int i,j,m,n,k,nk,cnt=0,lc,h,*p,*a;
   double sp2,da,*dp2,*obsvec;
   
@@ -97,11 +97,11 @@ void ojasrnk(double *x, int *nrow, int *ncol, double *rn)
     cnt=0;
     lc=1;
     for(m=0; m<k; m++)
-    { 
+    {
       p[m]=m+1;
       obsvec[m]=x[i*k+m];
     }
-    na = (int) pow(2.,k); 
+    na = (int) pow(2.,k);
 
     while(lc!=0)
     {
