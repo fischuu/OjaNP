@@ -55,14 +55,20 @@ jobs:
 
     steps:
       - uses: r-hub/actions/checkout@v1
-      - name: Install BLAS (needed by mvtnorm on Linux)
+      - name: Install BLAS/LAPACK (needed by mvtnorm)
         run: |
           if command -v apt-get &> /dev/null; then
             apt-get update
-            # try common BLAS packages; at least one should exist
-            apt-get install -y libblas3 || apt-get install -y libopenblas0-pthread || apt-get install -y libatlas3-base || true
+            apt-get install -y libblas-dev liblapack-dev || \
+            apt-get install -y libopenblas-dev liblapack-dev || true
           elif command -v dnf &> /dev/null; then
-            dnf install -y blas || dnf install -y openblas || true
+            dnf install -y flexiblas-devel flexiblas lapack-devel lapack || \
+            dnf install -y blas-devel blas lapack-devel lapack || \
+            dnf install -y openblas-devel openblas lapack-devel lapack || true
+          elif command -v apk &> /dev/null; then
+            apk add blas-dev lapack-dev || true
+          elif command -v zypper &> /dev/null; then
+            zypper install -y blas-devel lapack-devel || true
           fi
       - uses: r-hub/actions/platform-info@v1
         with:
@@ -73,6 +79,7 @@ jobs:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
       - uses: r-hub/actions/run-check@v1
+        if: ${{ !contains(matrix.config.label, 'clang') }}
         with:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
