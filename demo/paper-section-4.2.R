@@ -35,7 +35,7 @@ cat("\n-----------------------------------------------------------------------\n
 cat("4.2.1  Oja median\n")
 cat("-----------------------------------------------------------------------\n\n")
 ## NOTE (fixes_j): added label; removed redundant set.seed(1); removed Grid algorithm section
-cat("\Default configuration:\n")
+cat("Default configuration:\n")
 OMev <- ojaMedian(X)
 OMev
 
@@ -119,8 +119,7 @@ cat("-----------------------------------------------------------------------\n\n
 
 GROUP <- biochem$group
 
-## NOTE (fixes_j): removed set.seed(1); removed C-sample sign test and final banner
 cat("C-sample rank test (permutation):\n")
 res_cs_rank <- ojaCsampleTest(X ~ GROUP, scores = "rank",
-                               method = "permutation")
+                              method = "permutation")
 print(res_cs_rank)

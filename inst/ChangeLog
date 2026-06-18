@@ -1,8 +1,6 @@
 LOG of the CHANGES in the package OjaNP
 
 Version 1.2-1
-* Updated documentation and examples
-* Fixed minor bugs
 * R-hub / CRAN compliance: fixed memory handling (R_Calloc, zero-init, use-after-free),
   type compatibility (long* to int*), and includes/declarations for strict compilers
 * Cleaned up demo/paper-section-4.2.R and demo/ojaMedianDemo.R

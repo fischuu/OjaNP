@@ -55,12 +55,14 @@ jobs:
 
     steps:
       - uses: r-hub/actions/checkout@v1
-      - name: Install FlexiBLAS (needed by mvtnorm)
+      - name: Install BLAS (needed by mvtnorm on Linux)
         run: |
           if command -v apt-get &> /dev/null; then
-            apt-get update && apt-get install -y libflexiblas3
+            apt-get update
+            # try common BLAS packages; at least one should exist
+            apt-get install -y libblas3 || apt-get install -y libopenblas0-pthread || apt-get install -y libatlas3-base || true
           elif command -v dnf &> /dev/null; then
-            dnf install -y flexiblas
+            dnf install -y blas || dnf install -y openblas || true
           fi
       - uses: r-hub/actions/platform-info@v1
         with:
