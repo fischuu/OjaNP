@@ -4,8 +4,38 @@ Title: Multivariate Methods Based on the Oja Median and Related Concepts
 Version: 1.2.1
 Date: 2026-06-17
 Encoding: UTF-8
-Author: Daniel Fischer, Karl Mosler, Jyrki Möttönen, Klaus Nordhausen, Oleksii Pokotylo, Daniel Vogel
-Maintainer: Daniel Fischer <daniel.fischer@luke.fi>
+Authors@R: c(
+    person(given = "Daniel", 
+           family = "Fischer", 
+           role = c("aut", "cre"), 
+           email = "daniel.fischer@luke.fi",
+           comment = c(ORCID = "0000-0002-7513-683X")),
+    person(given = "Juho",
+           family = "Eagling",
+           role = c("aut"),
+           comment = c(ORCID = "0000-0001-8333-5057"))
+    person(given = "Karl",
+           family = "Mosler", 
+           role = "aut",
+           comment = c(ORCID = "0000-0002-4015-8094")),
+    person(given = "Jyrki", 
+           family = "Möttönen", 
+           role = "aut",
+           comment = c(ORCID = "0000-0002-6270-2556")),
+    person(given = "Klaus", 
+           family = "Nordhausen", 
+           role = "aut",
+           comment = c(ORCID = "0000-0002-3758-8501")),
+    person(given = "Oleksii", 
+           family = "Pokotylo", 
+           role = "aut",
+           comment = c(ORCID = "0000-0002-1136-5123")),
+    person(given = "Daniel", 
+           family = "Vogel", 
+           role = "aut",
+           comment = c(ORCID = ""))
+  )
+Maintainer : Daniel Fischer <daniel.fischer@luke.fi>
 Depends: R (>= 3.0), ICS, ICSNP
 LinkingTo: Rcpp
 Description: Functions to calculate the Oja median, Oja signs and ranks and methods based upon them. For details, see the the corresponding publication in the Journal of Statistical Software <doi:10.18637/jss.v092.i08>.
