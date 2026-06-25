@@ -26,7 +26,7 @@ test_that("Oja signs: different center options work", {
   expect_equal(dim(sgn_vec), dim(X))
 })
 
-test_that("Oja signs: affine equivariance - output dimensions", {
+test_that("Oja signs: output dimensions preserved under affine transform", {
   X <- matrix(rnorm(8), nrow=4, ncol=2)
   A <- matrix(c(2,0, 0,3), nrow=2)
   b <- c(10, 20)

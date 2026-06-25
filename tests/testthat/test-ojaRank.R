@@ -15,7 +15,7 @@ test_that("Oja ranks: single point query", {
   expect_true(is.numeric(rnk))
 })
 
-test_that("Oja ranks: location invariant", {
+test_that("Oja ranks: output dimensions preserved under location shift", {
   X <- matrix(rnorm(12), nrow=6, ncol=2)
   b <- c(100, -50)
 

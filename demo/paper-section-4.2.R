@@ -7,15 +7,13 @@
 ################################################################################
 
 ## NOTE (fixes_j branch): removed extra blank line between header and code
-library(OjaNP)
-data(biochem)
+
 
 cat("===========================================================================\n")
 cat("Section 4.2: Illustration on biochemical data\n")
 cat("Journal of Statistical Software, 92(8), 2020\n")
 cat("===========================================================================\n\n")
 
-X <- as.matrix(biochem[, 1:2])
 
 cat("Data: biochem (Brown & Hettmansperger, 1987)\n")
 cat("  n =", nrow(X), "observations\n")
@@ -115,9 +113,7 @@ print(res_1s_perm)
 # ---------------------------------------------------------------------------
 cat("\n-----------------------------------------------------------------------\n")
 cat("4.2.6  C-sample location test\n")
-cat("-----------------------------------------------------------------------\n\n")
-
-GROUP <- biochem$group
+cat("-----------------------------------------------------------------------\n")
 
 cat("C-sample rank test (permutation):\n")
 res_cs_rank <- ojaCsampleTest(X ~ GROUP, scores = "rank",
