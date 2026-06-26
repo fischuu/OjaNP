@@ -386,7 +386,7 @@ int& Index::operator[](int index) const
 
 int Index::has(int value) const
 {
-	// BUG: pit�isi olla puolitushaku
+	// BUG: pitäisi olla puolitushaku
     errif(!digit,"Index::has: no digits allocated");
     int sum=0;
     for(int i=0; i<digits; i++)
@@ -561,7 +561,7 @@ ostream& operator <<(ostream& os,const Index& I)
     return os;
 }
 
-// Palauttaa ensimm�isen (d,n) indeksin, jonka ensimm�inen numero on k
+// Palauttaa ensimmäisen (d,n) indeksin, jonka ensimmäinen numero on k
 //
 // Huom. \sum_{k=i}^j \over{k}{d}= \over{j+1}{d+1} - \over{i}{d+1}
 // 
@@ -793,8 +793,9 @@ int IndexSet::common_digit() const
 
 	if(search_for_common_digit(I))
 	{
+		int res = digit[0][I[0]];  /* NOTE (fixes_j): save before delete[] to prevent use-after-free */
 		delete[] I;
-		return digit[0][I[0]];
+		return res;
 	}
 	else
 	{

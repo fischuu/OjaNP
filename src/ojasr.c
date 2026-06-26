@@ -3,27 +3,40 @@
 #include <stdlib.h>
 #include <R.h>
 
+/* NOTE (fixes_j / CRAN compliance):
+ * - Replaced Calloc/Free macros with R_Calloc/R_Free (R-allocated memory)
+ * - Added explicit C23-compliant function prototypes (removed outdated extern decls)
+ *   Previously used `extern double det(); void dp(), nextp();` style,
+ *   which is implicit int in old C - flagged by modern compilers.
+ */
+/* Function Prototypes inline with C23 */
+double det(double a[], int n);
+double sgn(double x);
+double sp(double x[], int k, int p[], double obsvec[], int a[], double *d);
+double sq(double x[], int k, int q[], double obsvec[], double *d);
+void dp(double x[], int n, int k, int p[], int a[], double cf[]);
+void eq(double x[], int n, int k, int q[], double cf[]);
+void nextp(int n, int k, int p[], int *last);
+
 /******************************************************************/
 /******************************************************************/
 void ojacrnk(double *x, int *nrow, int *ncol, double *rn)     
-{  
+{ 
   int i,j,m,n,k,nk,cnt=0,lc,h,*p,*a;
-  extern double det();  
-  double sp2,sp(),da,*dp2,*obsvec;
-  void dp(), nextp();
+  double sp2,da,*dp2,*obsvec;
   
   n=*nrow;
   k=*ncol;
   nk=(*nrow)*(*ncol);
   //kk=(*ncol)*(*ncol);
 
-  p = (int*) Calloc(k,int); 
+  p = (int*) R_Calloc(k,int); 
   if (p == NULL) error("memory allocation failed");
-  a = (int*) Calloc(k,int);
+  a = (int*) R_Calloc(k,int);
   if (a == NULL) error("memory allocation failed");
-  dp2 = (double*) Calloc(k,double);
+  dp2 = (double*) R_Calloc(k,double);
   if (dp2 == NULL) error("memory allocation failed");
-  obsvec = (double*) Calloc(k,double);
+  obsvec = (double*) R_Calloc(k,double);
   if (obsvec == NULL) error("memory allocation failed");
 
   /* Initialization */
@@ -48,10 +61,10 @@ void ojacrnk(double *x, int *nrow, int *ncol, double *rn)
     }
   }
 
-  Free(p);
-  Free(a);
-  Free(dp2);
-  Free(obsvec);
+  R_Free(p);
+  R_Free(a);
+  R_Free(dp2);
+  R_Free(obsvec);
 
   for(i=0;i<nk;i++)rn[i]/=cnt;
 }   
@@ -61,22 +74,20 @@ void ojacrnk(double *x, int *nrow, int *ncol, double *rn)
 void ojasrnk(double *x, int *nrow, int *ncol, double *rn)     
 {  
   int i,j,m,n,k,nk,*p,cnt=0,lc,*a,h,na,hh;   
-  extern double det();  
-  double sp2,sp(),*dp2,*obsvec,da;
-  void dp(), nextp();
+  double sp2,*dp2,*obsvec,da;
  
   n=*nrow;
   k=*ncol;
   nk=(*nrow)*(*ncol);
   //kk=(*ncol)*(*ncol);
 
-  p = (int*) Calloc(k,int);
+  p = (int*) R_Calloc(k,int);
   if (p == NULL) error("memory allocation failed");
-  a = (int*) Calloc(k,int);
+  a = (int*) R_Calloc(k,int);
   if (a == NULL) error("memory allocation failed");
-  dp2 = (double*) Calloc(k,double);
+  dp2 = (double*) R_Calloc(k,double);
   if (dp2 == NULL) error("memory allocation failed");
-  obsvec = (double*) Calloc(k,double);
+  obsvec = (double*) R_Calloc(k,double);
   if (obsvec == NULL) error("memory allocation failed");
 
   /* Initialization */
@@ -86,11 +97,11 @@ void ojasrnk(double *x, int *nrow, int *ncol, double *rn)
     cnt=0;
     lc=1;
     for(m=0; m<k; m++)
-    { 
+    {
       p[m]=m+1;
       obsvec[m]=x[i*k+m];
     }
-    na = (int) pow(2.,k); 
+    na = (int) pow(2.,k);
 
     while(lc!=0)
     {
@@ -114,10 +125,10 @@ void ojasrnk(double *x, int *nrow, int *ncol, double *rn)
     }
   }
 
-  Free(p);
-  Free(a);
-  Free(dp2);
-  Free(obsvec);
+  R_Free(p);
+  R_Free(a);
+  R_Free(dp2);
+  R_Free(obsvec);
 
   for(i=0;i<nk;i++)rn[i]/=cnt;
 }   
@@ -129,24 +140,22 @@ void ojasrnk(double *x, int *nrow, int *ncol, double *rn)
 void ojasrnk2(double *x, int *nrow, int *ncol, double *rn)     
 {  
   int i,j,m,n,k,nk,*p,cnt=0,lc,*a,h;   
-  extern double det();  
-  double sp2,sp(),*dp2,*obsvec,*x2,da;
-  void dp(), nextp();
+  double sp2,*dp2,*obsvec,*x2,da;
  
   n=*nrow;
   k=*ncol;
   nk=(*nrow)*(*ncol);
   //kk=(*ncol)*(*ncol);
 
-  x2      = (double*)Calloc((2*n)*k,double);
+  x2      = (double*)R_Calloc((2*n)*k,double);
   if (x2 == NULL) error("memory allocation failed");
-  p       = (int*)Calloc(k,int);
+  p       = (int*)R_Calloc(k,int);
   if (p == NULL) error("memory allocation failed");
-  dp2     = (double*)Calloc(k,double);
+  dp2     = (double*)R_Calloc(k,double);
   if (dp2 == NULL) error("memory allocation failed");
-  obsvec  = (double*)Calloc(k,double);
+  obsvec  = (double*)R_Calloc(k,double);
   if (obsvec == NULL) error("memory allocation failed");
-  a       = (int*)Calloc(k,int);
+  a       = (int*)R_Calloc(k,int);
   if (a == NULL) error("memory allocation failed");
 
   for(i=0; i<(2*n); i++){
@@ -180,11 +189,11 @@ void ojasrnk2(double *x, int *nrow, int *ncol, double *rn)
     }
   }
 
-  Free(x2);
-  Free(p);
-  Free(dp2);
-  Free(obsvec);
-  Free(a);
+  R_Free(x2);
+  R_Free(p);
+  R_Free(dp2);
+  R_Free(obsvec);
+  R_Free(a);
 
   for(i=0;i<nk;i++)rn[i]/=cnt;
 }   
@@ -196,20 +205,18 @@ void ojasrnk2(double *x, int *nrow, int *ncol, double *rn)
 void ojasn(double *a, int *nrow, int *ncol, double *sn)     
 {  
   int i,j,m,n,k,nk,*q,cnt=0,lc;   
-  extern double det();  
-  double sq2,sq(),*eq2,*obsvec,da;
-  void eq(), nextp();
+  double sq2,*eq2,*obsvec,da;
    
   n=*nrow;
   k=*ncol;
   nk=(*nrow)*(*ncol);
   //kk=(*ncol)*(*ncol);
 
-  q       = (int*)Calloc(k,int);
+  q       = (int*)R_Calloc(k,int);
   if (q == NULL) error("memory allocation failed");
-  eq2     = (double*)Calloc(k,double);
+  eq2     = (double*)R_Calloc(k,double);
   if (eq2 == NULL) error("memory allocation failed");
-  obsvec  = (double*)Calloc(k,double);
+  obsvec  = (double*)R_Calloc(k,double);
   if (obsvec == NULL) error("memory allocation failed");
 
   /* Initialization */
@@ -235,9 +242,9 @@ void ojasn(double *a, int *nrow, int *ncol, double *sn)
     }
   }
 
-  Free(q);
-  Free(eq2);
-  Free(obsvec);
+  R_Free(q);
+  R_Free(eq2);
+  R_Free(obsvec);
 
   for(i=0;i<nk;i++)sn[i]/=cnt; 
 }   
@@ -261,10 +268,9 @@ double sgn(double x)
 double sp(double x[], int k, int p[], double obsvec[], int a[], double *d)
 {  
   int i, j;
-  double *x2,sgn(),maxabsj=0.0,absj,g;
-  extern double det();
+  double *x2,maxabsj=0.0,absj,g;
 
-  x2 = (double*)Calloc(k*k,double);
+  x2 = (double*)R_Calloc(k*k,double);
   if (x2 == NULL) error("memory allocation failed");
 
   for(i=0; i<k; i++){
@@ -280,7 +286,7 @@ double sp(double x[], int k, int p[], double obsvec[], int a[], double *d)
   *d=det(x2,k);
   if((fabs(*d)/g)<1.0e-10) *d=0.0;
 
-  Free(x2);
+  R_Free(x2);
 
   return(sgn(*d));	   /* sign of the determinant */
 }
@@ -292,10 +298,9 @@ double sp(double x[], int k, int p[], double obsvec[], int a[], double *d)
 double sq(double x[], int k, int q[], double obsvec[], double *d)
 {  
   int i, j;
-  double *x2,sgn(),maxabsj=0.0,absj,g;
-  extern double det();
+  double *x2,maxabsj=0.0,absj,g;
 
-  x2 = (double*)Calloc(k*k,double);
+  x2 = (double*)R_Calloc(k*k,double);
   if (x2 == NULL) error("memory allocation failed");
 
   for(j=0; j<k; j++){
@@ -317,7 +322,7 @@ double sq(double x[], int k, int q[], double obsvec[], double *d)
   *d=det(x2,k);
   if((fabs(*d)/g)<1.0e-10) *d=0.0;
 
-  Free(x2); 
+  R_Free(x2); 
 
   return(sgn(*d));	   /* sign of the determinant */
 }
@@ -331,9 +336,8 @@ void dp(double x[], int n, int k, int p[], int a[], double cf[])
   //int i, j, h, u, v;     2009.05.08
   int i, j, u, v;
   double *x2;
-  extern double det();
 
-  x2 = (double*)Calloc(k*k,double);
+  x2 = (double*)R_Calloc(k*k,double);
   if (x2 == NULL) error("memory allocation failed");
 
   for(u=0;u<k;u++) /* u:th cofactor */
@@ -354,7 +358,7 @@ void dp(double x[], int n, int k, int p[], int a[], double cf[])
     cf[u]=pow(-1.,u+1)*det(x2,k);
   }
  
-  Free(x2);
+  R_Free(x2);
   
 }
 
@@ -366,9 +370,8 @@ void eq(double x[], int n, int k, int q[], double cf[])
  // int i, j, h, u, v;   2009.05.08
   int i, j, u, v;
   double *x2;
-  extern double det();
 
-  x2 = (double*)Calloc(k*k,double);
+  x2 = (double*)R_Calloc(k*k,double);
   if (x2 == NULL) error("memory allocation failed");
 
   for(u=0;u<k;u++) /* u:th cofactor */
@@ -388,7 +391,7 @@ void eq(double x[], int n, int k, int q[], double cf[])
     cf[u]=pow(-1.,u)*det(x2,k-1); 
   }
 
-  Free(x2);
+  R_Free(x2);
 
 }
 

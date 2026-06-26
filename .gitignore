@@ -4,4 +4,8 @@
 src/*.o
 src/*.so
 src/*.dll
-
+OjaNP.Rcheck/
+OjaNP_*.tar.gz
+src/symbols.rds
+*.Rcheck/
+..Rcheck/

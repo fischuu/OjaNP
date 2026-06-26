@@ -1,5 +1,10 @@
 LOG of the CHANGES in the package OjaNP
 
+Version 1.2-1
+* R-hub / CRAN compliance: fixed memory handling (R_Calloc, zero-init, use-after-free),
+  type compatibility (long* to int*), and includes/declarations for strict compilers
+* Cleaned up demo/paper-section-4.2.R and demo/ojaMedianDemo.R
+
 Version 1.0-0
 * Final release version with references to the corresponding JSS manuscript
 

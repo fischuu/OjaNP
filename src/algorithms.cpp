@@ -24,8 +24,8 @@
 #include "data.h"
 #include "simplex.h"
 #include "line.h"
+#include "global.h"        /* NOTE (fixes_j): must come before oja_geometry.h for Rcout macro */
 #include "oja_geometry.h"
-#include "global.h"
 #include "matrix_wrapper.h"
 #include "stl_tools.h"
 #ifdef GRAPHICS
@@ -139,8 +139,6 @@ OjaPoint OjaData::medianEvalAllPoints()
     IndexSet I(dim(),dim(),size());
     HyperplaneSet H(dim());
     Point P,mn,mx;
-	long total=0,eval=0;
-   
     mn = this->min();
     mx = this->max();
     while(I)
@@ -148,13 +146,11 @@ OjaPoint OjaData::medianEvalAllPoints()
 		H.get(*this,I);// BUG: pit�isi k�ytt�� valmiita mahdollisuuksien mukaan
 
 		P = H.crossing_point();
-		total++;
 		
 		if(!P.is_nil() && P.in_box(mn,mx))
 		{
 			TRACE(P);
 			o = oja(P);
-			eval++;
 			if(o < min) 
 			{
 				min = o;
@@ -280,8 +276,8 @@ OjaPoint OjaData::medianBruteForceSearch()
 
 OjaPoint OjaData::medianFollowIntersectionLines()
 {
-	int fail_count=0;
 	int counter = 1;
+	int fail_count = 0;
 	//if(verbose)
 	//	cout << "Max. search lines " << max_searchlines << endl;
 
@@ -487,10 +483,7 @@ OjaPoint OjaData::medianLatticeApprox()
 	}
 */	
 	int sets=set_size; // Arvottavan setin koko
-	int set=1; // Arvottavan setin j�rjestysnumero
 	int n=0; // Hilaan lis�ttyjen hypertasojen m��r�
-	int lattice_number=1; // Kuinka mones hila menossa.
-	int lattice_points=L.points(); // Yhteenlaskettujen hilapisteiden m��r� kaikissa hiloissa.
 	Index I(dim(),size()); // Arvotun hypertason indeksi
 	Hyperplane H; // Arvottu hypertaso
 	Point R(dim()); // V�liaikaismuuttuja gradientille
@@ -600,13 +593,10 @@ OjaPoint OjaData::medianLatticeApprox()
 		wait_if_pause();
 #endif
 
-		lattice_number++;
-		lattice_points+=Lp->points();
 		
 		// M��ritell��n seuraavan kierroksen otoskoko
 		sets *= SAMPLE_SIZE_MULTIPLIER;
 
-		set++;
 	}
 
 #ifdef GRAPHICS	
@@ -619,8 +609,6 @@ OjaPoint OjaData::medianLatticeApprox()
 	SimpleIndex bestI=Lp->smallest_goodness();
 	SimpleIndex add(bestI.dim(),-1,1);
 	Data locations,gradients;
-	int approx_nodes=0;
-	
 	while(add)
 	{
 		SimpleIndex i(bestI.dim(),-1,99999);
@@ -628,9 +616,8 @@ OjaPoint OjaData::medianLatticeApprox()
 		i+=add;
 		if((*Lp).in_lattice(i))
 		{
-			locations.enlarge((*Lp).point(i));
-			gradients.enlarge((*Lp).node(i).gradient);
-			approx_nodes++;
+		locations.enlarge((*Lp).point(i));
+		gradients.enlarge((*Lp).node(i).gradient);
 		}
 		add++;
 	}
@@ -687,7 +674,6 @@ OjaPoint OjaData::medianLatticeApprox2()
 	}
 */
 	int sets=set_size; // Arvottavan setin koko
-	int set=1; // Arvottavan setin j�rjestysnumero
 	int n=0; // Hilaan lis�ttyjen hypertasojen m��r�
 	Index I(dim(),size()); // Arvotun hypertason indeksi
 	Hyperplane H; // Arvottu hypertaso
@@ -698,8 +684,6 @@ OjaPoint OjaData::medianLatticeApprox2()
 	double w; // Otospaino
 	double D0=0.0; // Keskim��r�inen koko estimaatti
 	double P0=0.0; // Keskim��r�inen samplaustn.
-	int lattice_number=1; // Kuinka mones hila menossa.
-	int lattice_points=L.points(); // Yhteenlaskettujen hila pisteiden m��r� kaikissa hiloissa.
 	int total=1; // Arvottujen hypertasojen m��r�
 
 	// Nollataan jokaisen solmun gradienttiestimaatti
@@ -810,13 +794,9 @@ OjaPoint OjaData::medianLatticeApprox2()
 		wait_if_pause();
 #endif
 
-		lattice_number++;
-		lattice_points+=Lp->points();
-		
 		// M��ritell��n seuraavan kierroksen otoskoko
 		sets *= SAMPLE_SIZE_MULTIPLIER;
 
-		set++;
 	}
 	
 #ifdef GRAPHICS	
@@ -868,10 +848,6 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 	matrix S(dim(),dim()); // Kovarianssimatriisi
 	matrix oldS(S); // Kovarianssimatriisin varakopio
 	SimpleIndex bestI; // Kulloinkin parhaan pisteen indeksi
-	int lattice_number=1; // Kuinka mones hila menossa.
-	int lattice_points=L.points(); // Yhteenlaskettujen hila pisteiden m��r� kaikissa hiloissa.
-	int restores=0; // Kuinka usein jouduttiin peruuttamaan.
-	int restored_planes=0; // Kuinka monta planea s�mpl�ttiin turhaan
 	int max_set_size=set_size*2; // Adaptiivisen moodin rajoitin, joka kasvaa hilakerroksittain
 
 	/*
@@ -972,8 +948,6 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 				S=oldS;
 				n=oldn;
  				LOG("Restoring old lattice");
-				restores++;
-				restored_planes+=set_size;
 				
 				if(adaptive)
 					set_size=(set_size >= 2 ? set_size/2 : 1);
@@ -992,11 +966,9 @@ OjaPoint OjaData::medianLatticeApprox3(list<Hyperplane>* store,list<Index>* idxs
 
 				LOG("Lattice grid size " << L.box_average_edge_length());
 
-				L.focus_on(bestI,bestI,true);
-				lattice_number++;
-				lattice_points+=L.points();
+			L.focus_on(bestI,bestI,true);
 
-				if(adaptive)
+			if(adaptive)
 				{
 					max_set_size*=2;
 				}
@@ -1147,7 +1119,6 @@ OjaPoint OjaData::medianBootstrap(const list<Hyperplane>& store,const list<Index
 	// Alustetaan muuttujat
 	FreeLattice L(min(),max(),INITIAL_STEP); // Hila
 	FreeLattice oldL(L); // Varakopio luottamusalueen palauttamiseen
-	int oldN=0; // Varakopio hypertasojen m��r�st�
 	Index I(dim(),size()); // Apumuuttuja indeksin samplaukseen
 	list<Hyperplane>::const_iterator hyp=store.begin(); // Listan seuraavaksi k�ytett�v� hypertaso
 	list<Index>::const_iterator idx=idxstore.begin(); // Listan seuraavaksi k�ytett�v� indeksi
@@ -1165,13 +1136,13 @@ OjaPoint OjaData::medianBootstrap(const list<Hyperplane>& store,const list<Index
 #endif
 	
 	int n=0;
+	int sets=set_size; // Arvottavan setin koko
 	int totalw=0; // Painojen kumulatiivinen summa
 	int wg;
 	
 	for(;;)
 	{	
 		oldL=L;
-		oldN=n;
 		
 		// Poimitaan satunnaisia hypertasoja 'SAMPLE_SIZE3' kappaletta
 		for(int sample=set_size; sample; sample--)
@@ -1224,27 +1195,19 @@ OjaPoint OjaData::medianBootstrap(const list<Hyperplane>& store,const list<Index
 
 		if(L.points())
 			bestI=L.smallest_goodness();
-		
+
 #ifdef GRAPHICS	
 		show_lattice();
 		wait_if_pause();
 #endif
 
-		if(L.points() <= 1)
-		{
- 			if(L.points()==0)
- 			{
- 				L=oldL;
-				n=oldN;
- 			}
- 			else
-			{				
-				if(L.box_diameter() < epsilon)
-					break;
-				
-				L.focus_on(bestI,bestI,true);
-			}
-		}
+		// M��ritell��n seuraavan kierroksen otoskoko
+		sets *= SAMPLE_SIZE_MULTIPLIER;
+
+		if(L.box_diameter() < epsilon)
+			break;
+		
+		L.focus_on(bestI,bestI,true);
 		
 	} // for(;;)
 

@@ -18,11 +18,10 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <R.h>
 #include "interface.h"
+#include "global.h"         /* NOTE (fixes_j): must precede oja_geometry.h for Rcout macro */
 #include "oja_geometry.h"
 #include "matrix_wrapper.h"
-#include "global.h"
 #include "random.h"
 
 
@@ -52,8 +51,11 @@ extern "C"
 	//             param4 = number of bootstrap samples
 	//  dbg - if non-zero, show debugging information
    
-	//XXXvoid r_oja(long* rows,long* cols,double* data,double* vec_out,double* mat_out,long* func,double* param1, double* param2, long* param3, long* param4,long* dbg, long* rSeed)
-	void r_oja(long* rows,long* cols,double* data,double* vec_out,double* mat_out,long* func,double* param1, double* param2, long* param3, long* param4,long* dbg)
+	//XXXvoid r_oja(int* rows,int* cols,double* data,double* vec_out,double* mat_out,int* func,double* param1, double* param2, int* param3, int* param4,int* dbg, int* rSeed)
+	// NOTE (fixes_j): Changed all long* parameters to int* for cross-platform
+	// compatibility. R .C() passes 4-byte ints; Unix C long is 8 bytes.
+	// change: switched from using long type to int, could cause errors in unix, as input was 4 byte and long is 8 byte in unix
+	void r_oja(int* rows,int* cols,double* data,double* vec_out,double* mat_out,int* func,double* param1, double* param2, int* param3, int* param4,int* dbg)
 	{
 		int dim=(int)*cols;
 		int size=(int)*rows;
@@ -94,9 +96,7 @@ extern "C"
 		  }
 			  
 		  case 2:
-		  {      //XXX if (*rSeed!=0){ srand(*rSeed);}
-		  	  //GetRNGstate();
-		  	  
+		  {
 			  D.set_median_method(LATTICE_APPROX3);
 			  D.set_lattice_measure(LM_DIAMETER);
 			  D.set_epsilon(*param1);
@@ -117,6 +117,7 @@ extern "C"
 			  vec_out[0]=D.oja(x);
 			  for(int i=1; i<dim; i++)
 				  vec_out[i]=0.0;
+			  PutRNGstate();
 			  return;
 		  }
 
@@ -139,12 +140,13 @@ extern "C"
 			  break;
 		  }
 
-		  default:
-			//  cerr << "oja: unsupported function " << *func << endl;
+		default:
+			  PutRNGstate();  /* NOTE (fixes_j): ensure RNG state returned to R */
 			  return;
 		}
 
 		for(int i=0; i<dim; i++)
 			vec_out[i]=v_output.location()[i];
+		PutRNGstate();  /* NOTE (fixes_j): return RNG state after normal exit */
 	}
 }

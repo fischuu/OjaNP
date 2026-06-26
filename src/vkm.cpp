@@ -461,13 +461,16 @@ extern "C" {
 		classgets(answer,className);
 		namesgets(answer,names);
 
-// --------Ab R-2.4.0 wird EnsureString nicht mehr unterst�tzt (daf�r funktioniert jetzt isFrame)---------	  
+// NOTE (fixes_j): isFrame() was removed from R 4.6.0+ headers.
+// Replaced all isFrame() calls with inherits(data, "data.frame").
+// Patch: isFrame() removed from R 4.6.0+ headers; replaced with inherits() below.
+  
 
 	 	PROTECT(dataClass=getAttrib(data,R_ClassSymbol));
 
 							
 //	  	if ((strcmp(CHAR(EnsureString(dataClass)),"data.frame")==0)||(isMatrix(data)==1)) {
-	  	if ((isFrame(data)==1)||(isMatrix(data)==1)) {	
+	  	if ((inherits(data, "data.frame")==1)||(isMatrix(data)==1)) {	
 			#ifdef PRINT_TRACE 
 			debugDatei=fopen(DEBUG_FILE_NAME,"a");	
   			PRINT_LOCATION;
@@ -477,7 +480,7 @@ extern "C" {
 	  		
 			bool dataFrame=false;
 //			if (strcmp(CHAR(EnsureString(dataClass)),"data.frame")==0) {
-			if (isFrame(data)==1) {				
+			if (inherits(data, "data.frame")==1) {  // Patch: isFrame -> inherits
 				dataFrame=true;
 				DIM=length(data);
 				NUMBER=length(VECTOR_ELT(data,0));

@@ -98,7 +98,7 @@ public:
 
             for (size_t i=0; i < row; i++)
             { 
-	        Val[i] = new T [col];
+	        Val[i] = new T [col]();  /* NOTE (fixes_j/valgrind): () zero-initializes rows */
                 if (v) memcpy( Val[i], v[i], rowlen);
             }
         }

@@ -1,11 +1,20 @@
 /* $Id: global.h,v 1.1 2008/01/25 11:47:49 ruthe Exp $ */
 #include "misc.h"
-#include <R.h>
 
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
 //using namespace std; //df
+
+/* NOTE (fixes_j/CRAN): Include Rcpp before R.h so the `cout -> Rcpp::Rcout`
+ * macro takes effect everywhere. Previously, R.h was included first,
+ * causing std::cout to leak to the C++ runtime instead of R's buffered output. */
+#ifndef _MSC_VER
+#include <Rcpp.h> 
+#define cout Rcpp::Rcout
+#endif
+
+#include <R.h>
 
 // bit flags
 // 0 - no debug
@@ -16,11 +25,6 @@ extern bool trace;
 extern bool verbose;
 extern bool quiet;
 extern bool adaptive;
-
-#ifndef _MSC_VER
-#include <Rcpp.h> 
-#define cout Rcpp::Rcout
-#endif
 
 
 #ifdef TO_FILE
