@@ -1,8 +1,8 @@
 Package: OjaNP
 Type: Package
 Title: Multivariate Methods Based on the Oja Median and Related Concepts
-Version: 1.2.1
-Date: 2026-06-17
+Version: 2.0
+Date: 2026-06-26
 Encoding: UTF-8
 Authors@R: c(
     person(given = "Daniel", 
