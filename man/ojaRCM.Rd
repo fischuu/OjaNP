@@ -1,6 +1,6 @@
 \name{ojaRCM}
 \alias{ojaRCM}
-\title{ Oja Rank Convariance Matrix }
+\title{ Oja Rank Covariance Matrix }
 \description{
   The function computes the Oja rank covariance matrix of a data set \code{X}.
 }
@@ -51,7 +51,7 @@ http://doi.org/10.18637/jss.v092.i08).}
 \cite{Visuri, S., Koivunen, V., Oja, H. (1999), Sign and rank covariance matrices, 
 \emph{J. Stat. Plann. Inference}, \bold{91}, 557--575.} 
 
-\cite{Ollila, E., Croux, C., Oja, H. (2004), Influence function and asymptotic effiency of the affine equivariant rank covariance matrix, \emph{Statistica Sinica}, \bold{14}, 297--316. }
+\cite{Ollila, E., Croux, C., Oja, H. (2004), Influence function and asymptotic efficiency of the affine equivariant rank covariance matrix, \emph{Statistica Sinica}, \bold{14}, 297--316. }
 }
 
 \author{Daniel Vogel}
@@ -77,7 +77,7 @@ ojaRCM(X)
 ### ----<< Example 2 >>---- : 300 points in R^7 
 # The merit of subsampling.
 # The following example might take a bit longer:
-\dontrun{
+\donttest{
 A <- matrix(c(1,0.5,1,4,2,0.5,-0.5,1,4), ncol = 3)
 B <- A \%x\% A;  Sigma  <- (B \%*\% t(B))[1:7, 1:7]
 # Sigma is some arbitrary positive definite matrix.
@@ -86,7 +86,7 @@ X <- rmvnorm(n = 300, sigma = Sigma)
 
 cov2cor(Sigma) # the true correlation matrix
 cor(X)  # Bravais-Pearson correlation
-cov2cor(solve(ojaRCM(X))
+cov2cor(solve(ojaRCM(X)))
 # correlation estimate based on Oja ranks 
 # The subsampling fraction in this example
 # is p = 1.081438e-10.

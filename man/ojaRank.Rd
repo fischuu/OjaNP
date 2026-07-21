@@ -77,7 +77,6 @@ http://doi.org/10.18637/jss.v092.i08).}
 
 \examples{
 ### ----<< Example 1 >>---- : 30 points in R^2
-\dontrun{
 set.seed(123)
 X <- rmvnorm(n = 30,mean = c(0,0)) # from package 'mvtnorm'
 ojaRank(X)
@@ -95,21 +94,18 @@ set.seed(123)
 t(apply(X, 1, function(y){ojaRank(X, y, p = 0.9, silent = TRUE)}))
 # In 1) one subsample for all ranks is drawn, whereas in 2)
 # a different sample for each rank is drawn.
-}
 
 ### ----<< Example 2 >>---- : three points in R^3: only one hyperplane
 # The following commands return the same result.
-\dontrun{
 ojaRank(X = diag(rep(1, 3)), x = c(0,0,0))
 ojaRank(X = diag(rep(1, 3)), x = c(-100,-110,-5550))
 hyperplane(X = diag(rep(1,3)))[1:3]
-}
 
 
 ### ----<< Example 3 >>---- : 300 points in R^7
 # Subsampling is done.
 # The following example might take a bit longer:
-\dontrun{
+\donttest{
 set.seed(123)
 X <- rmvnorm(n = 300, mean = rep(0, 7))
 system.time(or <- ojaRank(x = 1:7, X = X))
@@ -124,10 +120,8 @@ print(or,d=4)
 
 
 ### ----<< Example 4 >>---- : univariate ranks
-\dontrun{
 ojaRank(1:10)
 ojaRank(X = 1:10, x = 5.5)
-}
 }
 
 \keyword{multivariate}

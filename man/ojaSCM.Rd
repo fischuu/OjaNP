@@ -110,7 +110,7 @@ ojaSCM(X, center = "colMean")
 ### ----<< Example 2 >>---- : 300 points in R^7 
 # The merit of subsampling.
 # The following example might take a bit longer:
-\dontrun{
+\donttest{
 A <- matrix(c(1,0.5,1,4,2,0.5,-0.5,1,4), ncol = 3)
 B <- A \%x\% A;  Sigma  <- (B \%*\% t(B))[1:7, 1:7]
 # Sigma is some arbitrary positive definite matrix.

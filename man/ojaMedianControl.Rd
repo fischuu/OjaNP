@@ -13,7 +13,7 @@ ojaMedianControl(sigmaInit = 0, sigmaAda = 20, adaFactor = 0.5,
                   storeSubDet = TRUE, eps = 0.1, chi2 = 0.95, 
                   samples = 20, maxlines = 1000, S1 = cov, 
                   S2 = cov4, S1args = list(), S2args = list(),
-                  volume = 1e-6, boundedExact = T, ...)
+                  volume = 1e-6, boundedExact = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,6 +36,10 @@ ojaMedianControl(sigmaInit = 0, sigmaAda = 20, adaFactor = 0.5,
   \item{volume}{(for the \code{bounded_exact} algorithm):  is the desired size of the bounded region, which is selected as a part of the original volume. Here the volume is calculated as the volume of a minimal multivariate circumscribed rectangle with edges parallel to the coordinate axes.}
   \item{boundedExact}{(for the \code{bounded_exact} algorithm):  setting this parameter to \code{FALSE} stops the algorithm after the bounded region is found, and its center is reported as an approximation of the median.}
   \item{...}{Additional hidden option}
+}
+
+\value{
+  a list with parameters set to calculate the Oja Median with \code{ojaMedian}.
 }
 
 \author{Daniel Fischer and Klaus Nordhausen}

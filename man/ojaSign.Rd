@@ -157,7 +157,7 @@ ojaSign(X, x = ojaMedian(X))
 ### ----<< Example 3 >>---- : 400 points in R^6
 # Subsampling is done.
 # The following example might take a bit longer:
-\dontrun{
+\donttest{
 set.seed(123)
 X <- rmvnorm(n = 400, mean = rep(0, 6))
 os1 <- ojaSign(X, x = 1:6, c = colMeans)

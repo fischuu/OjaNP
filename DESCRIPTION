@@ -13,7 +13,7 @@ Authors@R: c(
     person(given = "Juho",
            family = "Eagling",
            role = c("aut"),
-           comment = c(ORCID = "0000-0001-8333-5057"))
+           comment = c(ORCID = "0000-0001-8333-5057")),
     person(given = "Karl",
            family = "Mosler", 
            role = "aut",
@@ -32,13 +32,41 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-1136-5123")),
     person(given = "Daniel", 
            family = "Vogel", 
-           role = "aut",
-           comment = c(ORCID = ""))
+           role = "aut"),
+    person(
+        given = "Tommi",
+        family = "Ronkainen",
+        role = "ctb",
+        comment = "Contributor of incorporated C++ code"
+    ),
+    person(
+        given = "Makoto",
+        family = "Matsumoto",
+        role = c("ctb", "cph"),
+        comment = "Original Mersenne Twister implementation"
+    ),
+    person(
+        given = "Takuji",
+        family = "Nishimura",
+        role = c("ctb", "cph"),
+        comment = "Original Mersenne Twister implementation"
+    ),
+    person(
+        given = "Shawn",
+        family = "Cokus",
+        role = "ctb",
+        comment = "Contributor to the Mersenne Twister implementation"
+    ),
+    person(
+        given = "Richard J.",
+        family = "Wagner",
+        role = "ctb",
+        comment = "Contributor to the Mersenne Twister implementation"
+    )
   )
-Maintainer : Daniel Fischer <daniel.fischer@luke.fi>
-Depends: R (>= 3.0), ICS, ICSNP
+Depends: R (>= 4.0), ICS, ICSNP
 LinkingTo: Rcpp
-Description: Functions to calculate the Oja median, Oja signs and ranks and methods based upon them. For details, see the the corresponding publication in the Journal of Statistical Software <doi:10.18637/jss.v092.i08>.
+Description: Calculating the Oja median, Oja signs and ranks and methods based upon them. For details, see the the corresponding publication Fischer, Mosler, et al. (2020) <doi:10.18637/jss.v092.i08>.
 License: GPL (>= 2)
 Suggests: testthat (>= 3.0.0)
 LazyLoad: yes
