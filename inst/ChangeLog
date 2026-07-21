@@ -1,5 +1,9 @@
 LOG of the CHANGES in the package OjaNP
 
+Version 2.0
+* Critical Cran waarnings/errors fixed and resubmitted to Cran after package being archived for some time
+* Adjusted package to latest Cran guidelines and added ctb and cph autho contributions
+
 Version 1.2-1
 * R-hub / CRAN compliance: fixed memory handling (R_Calloc, zero-init, use-after-free),
   type compatibility (long* to int*), and includes/declarations for strict compilers
